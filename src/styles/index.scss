@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url(../fonts/Roboto-Regular.ttf)
+}
+
+@import 'variables';
+
+.game-container {
+    display: inline-block;
+}
+use {
+    transition: 0.4s;
+    cursor: pointer;
+    fill: transparent;
+}
+
+use.special {
+    fill: red;
+}
+.pod-wrap use:hover {
+    fill: #000000;
+}
+
+svg {
+    width: 1000px;
+    flex: 1;
+}
