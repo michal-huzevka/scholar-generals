@@ -1,18 +1,31 @@
 import Point from 'js/Point';
 import HexGrid from 'js/HexGrid';
+import constants from 'js/constants';
 
-const SIZE = 7;
+const { HEXAGON_SIZE } = constants;
+
 class HexGridRenderer {
     renderGrid(hexGrid) {
         let html = '';
+        const xOffset = 10;
+        const yOffset = 20;
 
         hexGrid.getAllAxialHexes().forEach((hex) => {
-            const point = this.axialHexToPixel(hex);
-            let className = '';
-            if (hex.q === 3 && hex.r === 3) {
-                className = 'special';
+            const point = hex.toPoint();
+            let special = '';
+            
+            const offsetHex = hex.toOffsetHex();
+            const tile = hexGrid.tiles[offsetHex.col][offsetHex.row];
+
+            if (tile.getPawn()) {
+                special = tile.getPawn();
             }
-            html += `<use xlink:href="#pod" class="${className}" transform="translate(${point.x}, ${point.y})"/>`;
+            html += `
+                <g class="tile" transform="translate(${point.x + xOffset}, ${point.y + yOffset})">
+                    <text class="tile-text">${special}</text>
+                    <use xlink:href="#pod"/>
+                </g>
+            `;
         });
         return html;
     }
@@ -27,18 +40,10 @@ class HexGridRenderer {
 
         const points = [];
         for (let i = 0; i< 6; i++) {
-            points.push(flatHexCorner(new Point(10, 20), SIZE, i));
+            points.push(flatHexCorner(new Point(0, 0), HEXAGON_SIZE, i));
         }
         const str = points.map(point => point.toSvgPoint()).join(',')
         return `<polygon stroke="#000000" stroke-width="0.5" points="${str}" />`;
-    }
-
-    // r is up down direction
-    // q is diagonal direction
-    axialHexToPixel(hex) {
-        const x = SIZE * (3/2 * hex.q);
-        const y = SIZE * (Math.sqrt(3)/2 * hex.q  +  Math.sqrt(3) * hex.r);
-        return new Point(x, y);
     }
     
     build(hexGrid, element) {
