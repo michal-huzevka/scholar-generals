@@ -53,17 +53,23 @@ class HexGridView {
     handleTileSelect = (location) => {
         this.element.querySelectorAll('.tile').forEach((element) => {
             element.classList.remove('selected');
+            element.classList.remove('in-range');
         });
 
         const tile = this.model.getTileAt(location);
         const unit = tile.getUnit();
         
         if (unit) {
-            const element = this.getElementAtLocation(location);
+            const locations = this.model.gameBoard.hexGrid.getLocationsInRange(location, unit.moveSpeed);
 
-            element.classList.add('selected');
-            
-            console.log(this.model.gameBoard.hexGrid.getHexesInRange(new OffsetHex(location.x, location.y), 2));
+            locations.forEach((location) => {
+                const element = this.getElementAtLocation(location);
+
+                element.classList.add('in-range');
+            });
+            const selectedElement = this.getElementAtLocation(location);
+
+            selectedElement.classList.add('selected');
         }
     }
 

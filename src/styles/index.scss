@@ -28,6 +28,10 @@
     fill: lightblue;
 }
 
+.tile.in-range .hex {
+    fill: lightgreen;
+}
+
 svg {
     width: 1000px;
     flex: 1;

@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import OffsetHex from 'js/utils/hexGrid/OffsetHex';
 import Cube from 'js/utils/hexGrid/Cube';
 import Point from 'js/utils/hexGrid/Point';
@@ -27,9 +28,10 @@ class HexGrid {
         return new Point(x, y);
     }
 
-    getHexesInRange(hex, n) {
-        const results = [];
-        const center = hex.toCube();
+    getLocationsInRange(location, numberOfSpaces) {
+        let results = [];
+        const n = numberOfSpaces;
+        const center = new OffsetHex(location.x, location.y).toCube();
 
         for (let x = -n; x<=n; x++) {
             const max = Math.max(-n, -x-n);
@@ -43,8 +45,22 @@ class HexGrid {
             }
         }
 
-        return results.map(cube => cube.toOffsetHex());
+        results = _.reject(results, (cube) => {
+            // Dont include the provided location in the results.
+            return (
+                cube.x === center.x &&
+                cube.y === center.y
+            );
+        })
+
+        return results
+            .map(cube => cube.toOffsetHex())
+            .filter(this.doesLocationExist);
     }
+
+    doesLocationExist = (location) => {
+        return this.gridData[location.x] && this.gridData[location.x][location.y];
+    };
 
     getAllLocations() {
         const locations = [];
