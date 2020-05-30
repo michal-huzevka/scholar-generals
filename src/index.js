@@ -1,9 +1,9 @@
-import Game from 'js/Game';
+import App from 'js/App';
 import WebpackLogo from 'images/webpack-logo.svg';
 import 'styles/index.scss';
 
 window.onload = () => {
-    const game = new Game('.hook');
+    const app = new App('.hook');
 
-    game.start();
+    app.start();
 }

@@ -18,7 +18,7 @@ class HexGridView {
     }
 
     renderGrid() {
-        const gameBoard = this.model.gameBoard;
+        const gameBoard = this.model.getBoard();
         let html = '';
         const xOffset = 10;
         const yOffset = 20;
@@ -62,7 +62,7 @@ class HexGridView {
         const unit = tile.getUnit();
         
         if (unit) {
-            const locations = this.model.gameBoard.getLocationsInRange(location, unit.moveSpeed);
+            const locations = this.model.getBoard().getLocationsInRange(location, unit.moveSpeed);
 
             locations.forEach((location) => {
                 const element = this.getElementAtLocation(location);

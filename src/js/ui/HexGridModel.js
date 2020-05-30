@@ -2,16 +2,20 @@
 import _ from 'underscore';
 
 class HexGridModel {
-    constructor(gameBoard) {
-        this.gameBoard = gameBoard;
+    constructor(game) {
+        this.game = game;
         this.selectedLocation = null;
         this.eventListeners = {
             'tile:select': []
         };
     }
 
+    getBoard() {
+        return this.game.getState().getBoard();
+    }
+
     getTileAt(location) {
-        return this.gameBoard.getTileAt(location);
+        return this.getBoard().getTileAt(location);
     }
 
     selectTile(location) {

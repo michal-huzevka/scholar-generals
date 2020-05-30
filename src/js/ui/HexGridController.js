@@ -2,8 +2,8 @@ import HexGridModel from "js/ui/HexGridModel";
 import HexGridView from "js/ui/HexGridView";
 
 class HexGridController {
-    constructor(selector, gameBoard) {
-        this.model = new HexGridModel(gameBoard);
+    constructor(selector, game) {
+        this.model = new HexGridModel(game);
         this.view = new HexGridView(selector, this.model);
     }
 
