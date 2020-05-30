@@ -1,4 +1,5 @@
 import OffsetHex from 'js/core/OffsetHex';
+import Cube from 'js/core/Cube';
 import Point from 'js/core/Point';
 import constants from 'js/core/constants';
 
@@ -21,7 +22,6 @@ class AxialHex {
         var col = x;
         var row = z + (x - (x&1)) / 2
 
-        // this is wrong!
         return new OffsetHex(col, row);
     }
 
@@ -29,6 +29,14 @@ class AxialHex {
         const x = HEXAGON_SIZE * (3/2 * this.q);
         const y = HEXAGON_SIZE * (Math.sqrt(3)/2 * this.q  +  Math.sqrt(3) * this.r);
         return new Point(x, y);
+    }
+
+    toCube() {
+        var x = this.q;
+        var z = this.r;
+        var y = -x-z;
+
+        return new Cube(x, y, z);
     }
 }
 

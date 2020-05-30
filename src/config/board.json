@@ -1,0 +1,17 @@
+{
+    "width": 8,
+    "height": 12,
+    "units": [{
+        "location": {
+            "x": 3,
+            "y": 0
+        },
+        "type": "footman"
+    }, {
+        "location": {
+            "x": 5,
+            "y": 0
+        },
+        "type": "footman"
+    }]
+}

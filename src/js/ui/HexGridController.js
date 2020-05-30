@@ -19,8 +19,8 @@ class HexGridController {
             tile.addEventListener('click', (event) => {
                 const element = event.currentTarget;
                 const location = {
-                    x: element.getAttribute('data-x'),
-                    y: element.getAttribute('data-y')
+                    x: parseInt(element.getAttribute('data-x')),
+                    y: parseInt(element.getAttribute('data-y'))
                 };
 
                 this.model.selectTile(location);

@@ -1,11 +1,14 @@
 import OffsetHex from 'js/core/OffsetHex';
 import AxialHex from 'js/core/AxialHex';
+import Cube from 'js/core/Cube';
 import Tile from 'js/core/Tile';
 import Footman from 'js/core/unitTypes/Footman';
-// https://www.redblobgames.com/grids/hexagons/
-const HEIGHT = 12;
-const WIDTH = 8;
+import BOARD_CONFIG from 'config/board';
 
+const WIDTH = BOARD_CONFIG.width;
+const HEIGHT = BOARD_CONFIG.height;
+
+// https://www.redblobgames.com/grids/hexagons/
 class HexGrid {
     constructor() {
         // x, y
@@ -18,8 +21,37 @@ class HexGrid {
             }
         }
 
-        this.tiles[3][0].setUnit(new Footman());
-        this.tiles[4][0].setUnit(new Footman());
+        const units = BOARD_CONFIG.units;
+
+        units.forEach((unit) => {
+            const { x, y } = unit.location;
+
+            if (unit.type === 'footman') {
+                this.tiles[x][y].setUnit(new Footman());
+            }
+        });
+    }
+
+    getHexesInRange(hex, n) {
+        const results = [];
+        const center = hex.toCube();
+
+        console.log(center);
+
+        for (let x = -n; x<=n; x++) {
+            const max = Math.max(-n, -x-n);
+            const min  = Math.min(n, -x+n);
+
+            for (let y = max; y<= min; y++) {
+                const z = -x-y;
+                const cube = { x, y, z };
+
+                results.push(center.add(new Cube(x, y, z)));
+            }
+        }
+
+        console.log(results);
+        return results;
     }
 
     getTiles() {

@@ -1,4 +1,5 @@
 import Point from 'js/core/Point';
+import OffsetHex from 'js/core/OffsetHex';
 import constants from 'js/core/constants';
 
 const { HEXAGON_SIZE } = constants;
@@ -63,6 +64,8 @@ class HexGridView {
             const element = this.getElementAtLocation(location.x, location.y);
 
             element.classList.add('selected');
+            
+            console.log(this.model.hexGrid.getHexesInRange(new OffsetHex(location.x, location.y), 2));
         }
     }
 
