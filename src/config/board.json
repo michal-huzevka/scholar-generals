@@ -6,12 +6,43 @@
             "x": 3,
             "y": 0
         },
-        "type": "footman"
+        "type": "footman",
+        "owner": 1
+    }, {
+        "location": {
+            "x": 4,
+            "y": 0
+        },
+        "type": "footman",
+        "owner": 1
     }, {
         "location": {
             "x": 5,
-            "y": 3
+            "y": 0
         },
-        "type": "footman"
+        "type": "footman",
+        "owner": 1
+    },
+    {
+        "location": {
+            "x": 3,
+            "y": 11
+        },
+        "type": "footman",
+        "owner": 2
+    }, {
+        "location": {
+            "x": 4,
+            "y": 11
+        },
+        "type": "footman",
+        "owner": 2
+    }, {
+        "location": {
+            "x": 5,
+            "y": 11
+        },
+        "type": "footman",
+        "owner": 2
     }]
 }

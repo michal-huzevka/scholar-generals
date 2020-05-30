@@ -32,6 +32,13 @@
     fill: lightgreen;
 }
 
+.tile-text.player-red {
+    fill: red;
+}
+.tile-text.player-blue {
+    fill: blue;
+}
+
 svg {
     width: 1000px;
     flex: 1;

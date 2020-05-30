@@ -1,8 +1,8 @@
 import Unit from 'js/core/Unit';
 
 class Footman extends Unit {
-    constructor() {
-        super();
+    constructor(owner) {
+        super(owner);
         this.moveSpeed = 3;
     }
 

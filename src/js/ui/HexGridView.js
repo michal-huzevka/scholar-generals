@@ -26,10 +26,12 @@ class HexGridView {
         gameBoard.getAllLocations().forEach((location) => {
             const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
             let unitName = '';
+            let color = '';
             const tile = gameBoard.getTileAt(location);
 
             if (tile.getUnit()) {
                 unitName = tile.getUnit().toDisplayString();
+                color = 'player-' + tile.getUnit().getOwner().color;
             }
             html += `
                 <g
@@ -39,7 +41,7 @@ class HexGridView {
                     transform="translate(${point.x + xOffset}, ${point.y + yOffset})"
                 >
                     <use class="hex" xlink:href="#pod"/>
-                    <text class="tile-text">${unitName}</text>
+                    <text class="tile-text ${color}">${unitName}</text>
                 </g>
             `;
         });
@@ -60,7 +62,7 @@ class HexGridView {
         const unit = tile.getUnit();
         
         if (unit) {
-            const locations = this.model.gameBoard.hexGrid.getLocationsInRange(location, unit.moveSpeed);
+            const locations = this.model.gameBoard.getLocationsInRange(location, unit.moveSpeed);
 
             locations.forEach((location) => {
                 const element = this.getElementAtLocation(location);
