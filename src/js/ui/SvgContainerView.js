@@ -1,33 +1,11 @@
-import Point from 'js/Point';
-import HexGrid from 'js/HexGrid';
-import constants from 'js/constants';
+import Point from 'js/core/Point';
+import constants from 'js/core/constants';
 
 const { HEXAGON_SIZE } = constants;
 
-class HexGridRenderer {
-    renderGrid(hexGrid) {
-        let html = '';
-        const xOffset = 10;
-        const yOffset = 20;
-
-        hexGrid.getAllAxialHexes().forEach((hex) => {
-            const point = hex.toPoint();
-            let special = '';
-            
-            const offsetHex = hex.toOffsetHex();
-            const tile = hexGrid.tiles[offsetHex.col][offsetHex.row];
-
-            if (tile.getPawn()) {
-                special = tile.getPawn();
-            }
-            html += `
-                <g class="tile" transform="translate(${point.x + xOffset}, ${point.y + yOffset})">
-                    <text class="tile-text">${special}</text>
-                    <use xlink:href="#pod"/>
-                </g>
-            `;
-        });
-        return html;
+class SvgContainerView {
+    constructor(selector) {
+        this.selector = selector;
     }
     
     buildPolygon() {
@@ -46,25 +24,26 @@ class HexGridRenderer {
         return `<polygon stroke="#000000" stroke-width="0.5" points="${str}" />`;
     }
     
-    build(hexGrid, element) {
+    render() {
         const html =
         `
-            <div class="game-container">
+            <div class="grid-container" oncontextmenu="return false">
                 <svg viewBox="0 0 200 200">
                 <defs>
                     <g id="pod">
                         ${this.buildPolygon()}
                     </g>
                 </defs>
-                <g class="pod-wrap">
-                    ${this.renderGrid(hexGrid)}
+                <g class="grid">
                 </g>
                 </svg>
             </div>
         `;
         
-        const gameNode = this.createElementFromHTML(html);
-        element.parentNode.replaceChild(gameNode, element);
+        const node = this.createElementFromHTML(html);
+        const element = document.querySelector(this.selector);
+
+        element.parentNode.replaceChild(node, element);
     }
     
     createElementFromHTML(htmlString) {
@@ -76,4 +55,4 @@ class HexGridRenderer {
     }
 }
 
-export default HexGridRenderer;
+export default SvgContainerView;

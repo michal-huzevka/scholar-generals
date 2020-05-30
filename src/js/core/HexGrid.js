@@ -1,8 +1,10 @@
-import OffsetHex from 'js/OffsetHex';
-import AxialHex from 'js/AxialHex';
+import OffsetHex from 'js/core/OffsetHex';
+import AxialHex from 'js/core/AxialHex';
+import Tile from 'js/core/Tile';
+import Footman from 'js/core/unitTypes/Footman';
 // https://www.redblobgames.com/grids/hexagons/
-const HEIGHT = 10;
-const WIDTH = 5;
+const HEIGHT = 12;
+const WIDTH = 8;
 
 class HexGrid {
     constructor() {
@@ -16,10 +18,16 @@ class HexGrid {
             }
         }
 
-        console.log(this.tiles.length);
+        this.tiles[3][0].setUnit(new Footman());
+        this.tiles[4][0].setUnit(new Footman());
+    }
 
-        this.tiles[3][0].setPawn('F');
-        this.tiles[4][0].setPawn('F');
+    getTiles() {
+        return this.tiles;
+    }
+
+    getTileAt(x, y) {
+        return this.tiles[x][y];
     }
 
     getAllAxialHexes() {
@@ -31,17 +39,6 @@ class HexGrid {
         }
         return hexes.map(hex => hex.toAxialHex());
     }
-}
-
-class Tile {
-    setPawn(pawn) {
-        this.pawn = pawn;
-    }
-
-    getPawn(pawn) {
-        return this.pawn;
-    }
-
 }
 
 export default HexGrid;

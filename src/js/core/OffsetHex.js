@@ -1,4 +1,4 @@
-import AxialHex from 'js/AxialHex';
+import AxialHex from 'js/core/AxialHex';
 
 class OffsetHex {
     constructor(col, row) {

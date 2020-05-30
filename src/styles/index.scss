@@ -5,25 +5,27 @@
 
 @import 'variables';
 
-.game-container {
+.grid-container {
     display: inline-block;
 }
-use {
+
+.hex {
     transition: 0.4s;
     cursor: pointer;
     fill: transparent;
 }
 
-use.special {
-    fill: red;
-}
-.pod-wrap use:hover {
+.hex:hover {
     fill: #000000;
 }
 
 .tile-text {
-    font-size: 3px;
+    font-size: 4px;
     text-anchor: middle;
+}
+
+.tile.selected .hex {
+    fill: lightblue;
 }
 
 svg {

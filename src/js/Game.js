@@ -1,17 +1,17 @@
-import Point from 'js/Point';
-import HexGrid from 'js/HexGrid';
-import HexGridRenderer from 'js/HexGridRenderer';
+import HexGrid from 'js/core/HexGrid';
+import HexGridController from 'js/ui/HexGridController';
+import SvgContainerView from 'js/ui/SvgContainerView';
 
-const SIZE = 7;
 class Game {
-    
-    constructor() {
+    constructor(selector) {
         this.hexGrid = new HexGrid();
-        this.renderer = new HexGridRenderer();
+        this.svgContainerView = new SvgContainerView(selector);
+        this.hexGridController = new HexGridController('.grid', this.hexGrid);
     }
     
-    start(element) {
-       this.renderer.build(this.hexGrid, element);
+    start() {
+       this.svgContainerView.render();
+       this.hexGridController.initialise();
     }
 }
 

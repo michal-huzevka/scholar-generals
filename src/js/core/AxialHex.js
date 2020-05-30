@@ -1,6 +1,6 @@
-import OffsetHex from 'js/OffsetHex';
-import Point from 'js/Point';
-import constants from 'js/constants';
+import OffsetHex from 'js/core/OffsetHex';
+import Point from 'js/core/Point';
+import constants from 'js/core/constants';
 
 const { HEXAGON_SIZE } = constants;
 

@@ -3,7 +3,7 @@ import WebpackLogo from 'images/webpack-logo.svg';
 import 'styles/index.scss';
 
 window.onload = () => {
-    const game = new Game();
+    const game = new Game('.hook');
 
-    game.start(document.querySelector('.hook'));
+    game.start();
 }
