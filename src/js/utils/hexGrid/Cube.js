@@ -1,4 +1,4 @@
-import AxialHex from 'js/core/AxialHex';
+import OffsetHex from 'js/utils/hexGrid/OffsetHex';
 
 class Cube {
     constructor(x, y, z) {
@@ -7,19 +7,19 @@ class Cube {
         this.z = z;
     }
 
-    toAxialHex() {
-        const q = this.x;
-        const r = this.z;
-
-        return new AxialHex(r, q);
-    }
-
     add(cube) {
         return new Cube(
             this.x + cube.x,
             this.y + cube.y,
             this.z + cube.z
         );
+    }
+
+    toOffsetHex() {
+        var col = this.x;
+        var row = this.z + (this.x - (this.x&1)) / 2;
+
+        return new OffsetHex(col, row)
     }
 }
 

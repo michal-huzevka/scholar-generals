@@ -1,5 +1,5 @@
-import Point from 'js/core/Point';
-import constants from 'js/core/constants';
+import Point from 'js/utils/hexGrid/Point';
+import constants from 'js/ui/constants';
 
 const { HEXAGON_SIZE } = constants;
 
@@ -25,9 +25,10 @@ class SvgContainerView {
     }
     
     render() {
+        // oncontextmenu="return false"
         const html =
         `
-            <div class="grid-container" oncontextmenu="return false">
+            <div class="grid-container">
                 <svg viewBox="0 0 200 200">
                 <defs>
                     <g id="pod">

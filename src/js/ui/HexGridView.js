@@ -1,6 +1,6 @@
-import Point from 'js/core/Point';
-import OffsetHex from 'js/core/OffsetHex';
-import constants from 'js/core/constants';
+import OffsetHex from 'js/utils/hexGrid/OffsetHex';
+import HexGrid from 'js/utils/hexGrid/HexGrid';
+import constants from 'js/ui/constants';
 
 const { HEXAGON_SIZE } = constants;
 
@@ -18,30 +18,28 @@ class HexGridView {
     }
 
     renderGrid() {
-        const hexGrid = this.model.hexGrid;
+        const gameBoard = this.model.gameBoard;
         let html = '';
         const xOffset = 10;
         const yOffset = 20;
 
-        hexGrid.getAllAxialHexes().forEach((hex) => {
-            const point = hex.toPoint();
-            let special = '';
-            
-            const offsetHex = hex.toOffsetHex();
-            const tile = hexGrid.tiles[offsetHex.col][offsetHex.row];
+        gameBoard.getAllLocations().forEach((location) => {
+            const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
+            let unitName = '';
+            const tile = gameBoard.getTileAt(location);
 
             if (tile.getUnit()) {
-                special = tile.getUnit().toDisplayString();
+                unitName = tile.getUnit().toDisplayString();
             }
             html += `
                 <g
                     class="tile"
-                    data-x="${offsetHex.col}"
-                    data-y="${offsetHex.row}"
+                    data-x="${location.x}"
+                    data-y="${location.y}"
                     transform="translate(${point.x + xOffset}, ${point.y + yOffset})"
                 >
                     <use class="hex" xlink:href="#pod"/>
-                    <text class="tile-text">${special}</text>
+                    <text class="tile-text">${unitName}</text>
                 </g>
             `;
         });
@@ -57,19 +55,21 @@ class HexGridView {
             element.classList.remove('selected');
         });
 
-        const tile = this.model.getTileAt(location.x, location.y);
+        const tile = this.model.getTileAt(location);
         const unit = tile.getUnit();
         
         if (unit) {
-            const element = this.getElementAtLocation(location.x, location.y);
+            const element = this.getElementAtLocation(location);
 
             element.classList.add('selected');
             
-            console.log(this.model.hexGrid.getHexesInRange(new OffsetHex(location.x, location.y), 2));
+            console.log(this.model.gameBoard.hexGrid.getHexesInRange(new OffsetHex(location.x, location.y), 2));
         }
     }
 
-    getElementAtLocation(x, y) {
+    getElementAtLocation(location) {
+        const { x, y } = location;
+
         return this.element.querySelector(`
             [data-x="${x}"][data-y="${y}"]
         `);

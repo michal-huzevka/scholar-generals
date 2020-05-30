@@ -1,12 +1,12 @@
-import HexGrid from 'js/core/HexGrid';
+import GameBoard from 'js/core/GameBoard';
 import HexGridController from 'js/ui/HexGridController';
 import SvgContainerView from 'js/ui/SvgContainerView';
 
 class Game {
     constructor(selector) {
-        this.hexGrid = new HexGrid();
+        this.gameBoard = new GameBoard();
         this.svgContainerView = new SvgContainerView(selector);
-        this.hexGridController = new HexGridController('.grid', this.hexGrid);
+        this.hexGridController = new HexGridController('.grid', this.gameBoard);
     }
     
     start() {
