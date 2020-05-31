@@ -34,13 +34,54 @@ class HexGridPrivate {
         return offsetHexes.map(hex => hex.toCube());
     };
 
-    // TODO: this needs to change
-    getDistance = (firstLocation, secondLocation) => {
-        const first = new OffsetHex(firstLocation.x, firstLocation.y).toCube();
-        const second = new OffsetHex(secondLocation.x, secondLocation.y).toCube();
+    getPath(start, end) {
+        const visited = new Set();
+        const fringes = []; // array of arrays of hexes
+        const cameFrom = {};
 
-        return first.getDistance(second);
-    };
+        cameFrom[start.toString()] = null;
+        visited.add(start.toString());
+        fringes.push([start]);
+
+        let i = 1;
+        let finished = false;
+        while (!finished) {
+            fringes.push([]);
+            const cubes = fringes[i-1];
+
+            cubes.forEach((cube) => {
+                for (let dir = 0; dir<6; dir++) {
+                    const neighbor = cube.getNeighbor(dir);
+                    const wasVisited = visited.has(neighbor.toString());
+
+                    if (
+                        !wasVisited &&
+                        this.doesCubeExist(neighbor) &&
+                        !this.hasObstacle(neighbor)
+                    ) {
+                        visited.add(neighbor.toString());
+                        fringes[i].push(neighbor);
+                        cameFrom[neighbor.toString()] = cube;
+
+                        if (neighbor.equalsTo(end)) {
+                            finished = true;
+                        }
+                    }
+                }
+            });
+
+            i++;
+        }
+        
+        const path = [];
+        let cube = end;
+        while (!cube.equalsTo(start)) {
+            path.unshift(cube);
+
+            cube = cameFrom[cube.toString()];
+        }
+        return path;
+    }
 
     getReachableCubes(start, movement) {
         const visited = new Set();

@@ -22,6 +22,14 @@ class Cube {
         return new OffsetHex(col, row);
     }
 
+    equalsTo(cube) {
+        return (
+            this.x === cube.x &&
+            this.y === cube.y &&
+            this.z === cube.z
+        );
+    }
+
     toLocation() {
         return this.toOffsetHex().toLocation();
     }
