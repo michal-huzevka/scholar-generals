@@ -50,7 +50,7 @@ class HexGridView extends React.Component {
         if (unit) {
             this.setState({
                 selectedLocation: location,
-                locationsInRange: board.getLocationsInRange(location, unit.movesLeft)
+                locationsInRange: board.getReachableLocations(location, unit.movesLeft)
             });
         } else {
             if (

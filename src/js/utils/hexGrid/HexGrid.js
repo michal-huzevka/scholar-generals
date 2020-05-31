@@ -1,22 +1,13 @@
 import _ from 'underscore';
 import OffsetHex from 'js/utils/hexGrid/OffsetHex';
+import HexGridPrivate from 'js/utils/hexGrid/HexGridPrivate';
 import Cube from 'js/utils/hexGrid/Cube';
 import Point from 'js/utils/hexGrid/Point';
 
 // https://www.redblobgames.com/grids/hexagons/
 class HexGrid {
     constructor(width, height) {
-        // x, y
-        this.gridData = [];
-        this.width = width;
-        this.height = height;
-
-        for (let column = 0; column<width; column++) {
-            this.gridData.push([]);
-            for (let row = 0; row<height; row++) {
-                this.gridData[column].push({});
-            }
-        }
+        this.hexGridPrivate = new HexGridPrivate(width, height);
     }
 
     static locationToPixelCoordinates(location, hexagonSize) 
@@ -28,64 +19,44 @@ class HexGrid {
         return new Point(x, y);
     }
 
-    getLocationsInRange(location, numberOfSpaces) {
-        let results = [];
-        const n = numberOfSpaces;
-        const center = new OffsetHex(location.x, location.y).toCube();
-
-        for (let x = -n; x<=n; x++) {
-            const max = Math.max(-n, -x-n);
-            const min  = Math.min(n, -x+n);
-
-            for (let y = max; y<= min; y++) {
-                const z = -x-y;
-                const cube = { x, y, z };
-
-                results.push(center.add(new Cube(x, y, z)));
-            }
-        }
-
-        results = _.reject(results, (cube) => {
-            // Dont include the provided location in the results.
-            return (
-                cube.x === center.x &&
-                cube.y === center.y
-            );
-        })
-
-        return results
-            .map(cube => cube.toOffsetHex().toLocation())
-            .filter(this.doesLocationExist);
-    }
-
     doesLocationExist = (location) => {
-        return this.gridData[location.x] && this.gridData[location.x][location.y];
+        return this.hexGridPrivate.gridData[location.x] && this.hexGridPrivate.gridData[location.x][location.y];
     };
 
+    // TODO: this needs to change
     getDistance = (firstLocation, secondLocation) => {
-        const first = new OffsetHex(firstLocation.x, firstLocation.y).toCube();
-        const second = new OffsetHex(secondLocation.x, secondLocation.y).toCube();
-
-        return first.getDistance(second);
+        this.hexGridPrivate.getDistance(firstLocation, secondLocation);
     };
 
-    getAllLocations() {
+    getAllLocations = () => {
         const locations = [];
 
-        for (let x = 0; x<this.width; x++) {
-            for (let y = 0; y<this.height; y++) {
+        for (let x = 0; x<this.hexGridPrivate.width; x++) {
+            for (let y = 0; y<this.hexGridPrivate.height; y++) {
                 locations.push({ x, y });
             }
         }
         return locations;
+    };
+
+    getReachableLocations = (startLocation, movement) => {
+        return this.hexGridPrivate.getReachableLocations(startLocation, movement);
     }
 
-    getLocationData(location) {
-        return this.gridData[location.x][location.y];
+    setObstacle = (location) => {
+        this.hexGridPrivate.gridData[location.x][location.y].obstacle = true;
     }
 
-    setLocationData(location, data) {
-        return this.gridData[location.x][location.y] = data;
+    hasObstacle = (location) => {
+        return this.hexGridPrivate.gridData[location.x][location.y].obstacle === true;
+    }
+
+    getLocationData = (location) => {
+        return this.hexGridPrivate.gridData[location.x][location.y].data;
+    }
+
+    setLocationData = (location, data) => {
+        this.hexGridPrivate.gridData[location.x][location.y].data = data;
     }
 }
 

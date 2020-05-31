@@ -48,8 +48,8 @@ class GameBoard {
         return this.hexGrid.getLocationData(location);
     }
 
-    getLocationsInRange(location, numberOfSpaces) {
-        return this.hexGrid.getLocationsInRange(location, numberOfSpaces);
+    getReachableLocations(location, numberOfSpaces) {
+        return this.hexGrid.getReachableLocations(location, numberOfSpaces);
     }
 
     getDistance = (firstLocation, secondLocation) => {
@@ -58,7 +58,7 @@ class GameBoard {
 
     isUnitInMoveRange(unitLocation, targetLocation) {
         const unit = this.getTileAt(unitLocation).getUnit();
-        const locations = this.getLocationsInRange(unitLocation, unit.movesLeft);
+        const locations = this.getReachableLocations(unitLocation, unit.movesLeft);
 
         return _.find(locations, (location) => {
             return _.isEqual(targetLocation, location);
