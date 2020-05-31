@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import cloneDeep from 'js/utils/cloneDeep';
 import Footman from 'js/core/unitTypes/Footman';
 import Tile from 'js/core/Tile';
 import Player from 'js/core/Player';
@@ -48,8 +49,24 @@ class GameBoard {
         return this.hexGrid.getLocationData(location);
     }
 
-    getReachableLocations(location, numberOfSpaces) {
-        return this.hexGrid.getReachableLocations(location, numberOfSpaces);
+    getReachableLocations(location, unit) {
+        const hexGrid = cloneDeep(this.hexGrid);
+
+        // set up obstacles for enemy players
+        const opposingPlayer = unit.getOwner().id === 1 ? 2 : 1;
+        const locations = this.getAllLocations();
+        const units = [];
+
+        locations.forEach((location) => {
+            const tile = this.getTileAt(location);
+            const unit = tile.getUnit();
+
+            if (unit && unit.getOwner().id === opposingPlayer) {
+                hexGrid.setObstacle(location);
+            }
+        });
+
+        return hexGrid.getReachableLocations(location, unit.movesLeft);
     }
 
     getDistance = (firstLocation, secondLocation) => {
@@ -58,7 +75,7 @@ class GameBoard {
 
     isUnitInMoveRange(unitLocation, targetLocation) {
         const unit = this.getTileAt(unitLocation).getUnit();
-        const locations = this.getReachableLocations(unitLocation, unit.movesLeft);
+        const locations = this.getReachableLocations(unitLocation, unit);
 
         return _.find(locations, (location) => {
             return _.isEqual(targetLocation, location);

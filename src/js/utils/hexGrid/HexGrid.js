@@ -33,7 +33,7 @@ class HexGrid {
         const first = new OffsetHex(firstLocation.x, firstLocation.y).toCube();
         const second = new OffsetHex(secondLocation.x, secondLocation.y).toCube();
 
-        this.hexGridPrivate.getPath(first, second).length;
+        return this.hexGridPrivate.getPath(first, second).length;
     };
 
     getAllLocations = () => {
@@ -47,7 +47,7 @@ class HexGrid {
     }
 
     hasObstacle = (location) => {
-        const cube = new OffsetHex(startLocation.x, startLocation.y).toCube();
+        const cube = new OffsetHex(location.x, location.y).toCube();
        
         return this.hexGridPrivate.hasObstacle(cube);
     }
