@@ -23,6 +23,17 @@ class HexGridPrivate {
 
     }
 
+    getAllCubes = () => {
+        const offsetHexes = [];
+
+        for (let x = 0; x<this.width; x++) {
+            for (let y = 0; y<this.height; y++) {
+                offsetHexes.push(new OffsetHex(x, y));
+            }
+        }
+        return offsetHexes.map(hex => hex.toCube());
+    };
+
     // TODO: this needs to change
     getDistance = (firstLocation, secondLocation) => {
         const first = new OffsetHex(firstLocation.x, firstLocation.y).toCube();
@@ -31,8 +42,7 @@ class HexGridPrivate {
         return first.getDistance(second);
     };
 
-    getReachableLocations(startLocation, movement) {
-        const start = (new OffsetHex(startLocation.x, startLocation.y)).toCube();
+    getReachableCubes(start, movement) {
         const visited = new Set();
         const fringes = []; // array of arrays of hexes
         visited.add(start.toString());
@@ -49,8 +59,8 @@ class HexGridPrivate {
 
                     if (
                         !wasVisited &&
-                        this.doesLocationExist(neighbor.toOffsetHex()) &&
-                        !this.hasObstacle(neighbor.toOffsetHex())
+                        this.doesCubeExist(neighbor) &&
+                        !this.hasObstacle(neighbor)
                     ) {
                         visited.add(neighbor.toString());
                         fringes[i].push(neighbor);
@@ -63,20 +73,34 @@ class HexGridPrivate {
         const result = [];
 
         visited.forEach((str) => {
-            result.push(Cube.fromString(str).toOffsetHex().toLocation());
+            result.push(Cube.fromString(str));
         });
         return result;
     }
     
-    //remove this
-    hasObstacle = (location) => {
+    hasObstacle = (cube) => {
+        const location = cube.toOffsetHex();
+
         return this.gridData[location.x][location.y].obstacle === true;
     }
 
-    // remove tihs
-    doesLocationExist = (location) => {
+    doesCubeExist = (cube) => {
+        const location = cube.toOffsetHex();
+
         return this.gridData[location.x] && this.gridData[location.x][location.y];
     };
+
+    setObstacle = (location) => {
+        this.gridData[location.x][location.y].obstacle = true;
+    }
+
+    getLocationData = (location) => {
+        return this.gridData[location.x][location.y].data;
+    }
+
+    setLocationData = (location, data) => {
+        this.gridData[location.x][location.y].data = data;
+    }
 }
 
 export default HexGridPrivate;

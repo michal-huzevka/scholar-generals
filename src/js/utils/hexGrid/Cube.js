@@ -19,7 +19,11 @@ class Cube {
         var col = this.x;
         var row = this.z + (this.x - (this.x&1)) / 2;
 
-        return new OffsetHex(col, row)
+        return new OffsetHex(col, row);
+    }
+
+    toLocation() {
+        return this.toOffsetHex().toLocation();
     }
 
     //TODO this needs to change
