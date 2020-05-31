@@ -54,7 +54,7 @@ class HexGrid {
         })
 
         return results
-            .map(cube => cube.toOffsetHex())
+            .map(cube => cube.toOffsetHex().toLocation())
             .filter(this.doesLocationExist);
     }
 

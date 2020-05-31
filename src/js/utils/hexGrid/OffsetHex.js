@@ -14,6 +14,14 @@ class OffsetHex {
         var y = -x-z;
         return new Cube(x, y, z);
     }
+
+    // returns a dumb object so that we can use _.isEqual
+    toLocation() {
+        return { 
+            x: this.x,
+            y: this.y
+        };
+    }
 }
 
 export default OffsetHex;

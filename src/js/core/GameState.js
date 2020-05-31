@@ -8,6 +8,7 @@ class GameState {
         this.players = [player1, player2];
 
         this.gameBoard = new GameBoard(this.players);
+        this.step = 0;
     }
 
     getBoard() {
