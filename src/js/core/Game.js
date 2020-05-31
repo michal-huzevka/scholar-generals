@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import GameState from 'js/core/GameState';
 import cloneDeep from 'js/utils/cloneDeep';
 
@@ -38,13 +39,29 @@ class Game {
         //TODO: check this is a valid move
         const state = cloneDeep(this.gameState);
         const board = state.getBoard();
-
         const tile = board.getTileAt(fromLocation);
         const unit = tile.getUnit();
+
+        if (unit.owner !== state.activePlayer) {
+            return false;
+        }
 
         tile.setUnit(null);
 
         board.getTileAt(toLocation).setUnit(unit);
+
+        this.setState(state);
+    }
+
+    endTurn = () => {
+        const state = cloneDeep(this.gameState);
+        let activePlayerId = state.activePlayer.id + 1;
+
+        if (activePlayerId === 3) {
+            activePlayerId = 1;
+        }
+
+        state.activePlayer = state.getPlayerById(activePlayerId);
 
         this.setState(state);
     }
