@@ -62,6 +62,13 @@ class HexGrid {
         return this.gridData[location.x] && this.gridData[location.x][location.y];
     };
 
+    getDistance = (firstLocation, secondLocation) => {
+        const first = new OffsetHex(firstLocation.x, firstLocation.y).toCube();
+        const second = new OffsetHex(secondLocation.x, secondLocation.y).toCube();
+
+        return first.getDistance(second);
+    };
+
     getAllLocations() {
         const locations = [];
 

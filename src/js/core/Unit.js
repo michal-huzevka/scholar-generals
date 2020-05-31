@@ -10,6 +10,10 @@ class Unit {
     getOwner() {
         return this.owner;
     }
+
+    refresh() {
+        this.movesLeft = this.moveSpeed;
+    }
 }
 
 export default Unit;

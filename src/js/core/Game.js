@@ -46,6 +46,8 @@ class Game {
             return false;
         }
 
+        unit.movesLeft -= board.getDistance(fromLocation, toLocation);
+
         tile.setUnit(null);
 
         board.getTileAt(toLocation).setUnit(unit);
@@ -55,6 +57,10 @@ class Game {
 
     endTurn = () => {
         const state = cloneDeep(this.gameState);
+
+        const units = state.getBoard().getAllUnitsForPlayer(state.activePlayer.id);
+
+        units.forEach((unit) => unit.refresh());
         let activePlayerId = state.activePlayer.id + 1;
 
         if (activePlayerId === 3) {

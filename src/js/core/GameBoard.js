@@ -24,6 +24,22 @@ class GameBoard {
         });
     }
 
+    getAllUnitsForPlayer(playerId) {
+        const locations = this.getAllLocations();
+        const units = [];
+
+        locations.forEach((location) => {
+            const tile = this.getTileAt(location);
+            const unit = tile.getUnit();
+
+            if (unit && unit.getOwner().id === playerId) {
+                units.push(unit);
+            }
+        });
+
+        return units;
+    }
+
     getAllLocations() {
         return this.hexGrid.getAllLocations();
     }
@@ -36,9 +52,13 @@ class GameBoard {
         return this.hexGrid.getLocationsInRange(location, numberOfSpaces);
     }
 
+    getDistance = (firstLocation, secondLocation) => {
+        return this.hexGrid.getDistance(firstLocation, secondLocation);
+    };
+
     isUnitInMoveRange(unitLocation, targetLocation) {
         const unit = this.getTileAt(unitLocation).getUnit();
-        const locations = this.getLocationsInRange(unitLocation, unit.moveSpeed);
+        const locations = this.getLocationsInRange(unitLocation, unit.movesLeft);
 
         return _.find(locations, (location) => {
             return _.isEqual(targetLocation, location);

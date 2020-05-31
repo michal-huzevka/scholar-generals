@@ -21,6 +21,10 @@ class Cube {
 
         return new OffsetHex(col, row)
     }
+
+    getDistance(cube) {
+        return (Math.abs(this.x - cube.x) + Math.abs(this.y - cube.y) + Math.abs(this.z - cube.z)) / 2;
+    }
 }
 
 export default Cube;
