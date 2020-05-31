@@ -34,8 +34,8 @@ class Game {
         this.trigger('step:increase', state.step);
     }
 
-    moveUnit(fromLocation, toLocation) {
-        //TODO: Not working yet
+    moveUnit = (fromLocation, toLocation) => {
+        //TODO: check this is a valid move
         const state = cloneDeep(this.gameState);
         const board = state.getBoard();
 
@@ -45,14 +45,6 @@ class Game {
         tile.setUnit(null);
 
         board.getTileAt(toLocation).setUnit(unit);
-
-        this.setState(state);
-    }
-
-    changePlayer1Color = (color) => {
-        const state = cloneDeep(this.gameState);
-
-        state.players[0].color = color;
 
         this.setState(state);
     }

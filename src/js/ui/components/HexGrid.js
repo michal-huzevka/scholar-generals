@@ -52,12 +52,26 @@ class HexGridView extends React.Component {
                 selectedLocation: location,
                 locationsInRange: board.getLocationsInRange(location, unit.moveSpeed)
             });
+        } else {
+            if (
+                this.state.selectedLocation &&
+                board.isUnitInMoveRange(this.state.selectedLocation, location)
+            ) {
+                // do a move
+                this.props.moveUnit(this.state.selectedLocation, location);
+            }
+
+            this.setState({
+                selectedLocation: null,
+                locationsInRange: []
+            });
         }
     }
 }
 
 export default withGlobalContext(HexGridView, (game) => {
     return {
-        board: game.getState().getBoard()
+        board: game.getState().getBoard(),
+        moveUnit: game.moveUnit
     };
 });

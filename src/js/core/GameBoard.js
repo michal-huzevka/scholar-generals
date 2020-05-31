@@ -35,6 +35,15 @@ class GameBoard {
     getLocationsInRange(location, numberOfSpaces) {
         return this.hexGrid.getLocationsInRange(location, numberOfSpaces);
     }
+
+    isUnitInMoveRange(unitLocation, targetLocation) {
+        const unit = this.getTileAt(unitLocation).getUnit();
+        const locations = this.getLocationsInRange(unitLocation, unit.moveSpeed);
+
+        return _.find(locations, (location) => {
+            return _.isEqual(targetLocation, location);
+        });
+    }
 }
 
 export default GameBoard;

@@ -10,6 +10,7 @@ class Main {
 
     initialise() {
         const domContainer = document.querySelector(this.selector);
+
         ReactDOM.render(<Root game={this.game} />, domContainer);
     }
 }
