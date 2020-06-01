@@ -1,8 +1,7 @@
 import _ from 'underscore';
-import cloneDeep from 'js/utils/cloneDeep';
 import Footman from 'js/core/unitTypes/Footman';
 import Tile from 'js/core/Tile';
-import Player from 'js/core/Player';
+import Player from 'js/core/models/Player';
 import BOARD_CONFIG from 'config/board';
 import HexGrid from 'js/utils/hexGrid/HexGrid';
 
@@ -10,17 +9,15 @@ const WIDTH = BOARD_CONFIG.width;
 const HEIGHT = BOARD_CONFIG.height;
 
 class GameBoard {
-    constructor(players) {
+    constructor() {
         this.hexGrid = new HexGrid(WIDTH, HEIGHT);
         this.hexGrid.getAllLocations().forEach((location) => {
             this.hexGrid.setLocationData(location, new Tile());
         });
 
         BOARD_CONFIG.units.forEach((unit) => {
-            const owner = _.find(players, player => player.id === unit.owner);
-
             if (unit.type === 'footman') {
-                this.hexGrid.getLocationData(unit.location).setUnit(new Footman(owner));
+                this.hexGrid.getLocationData(unit.location).setUnit(new Footman(unit.owner));
             }
         });
     }
@@ -33,7 +30,7 @@ class GameBoard {
             const tile = this.getTileAt(location);
             const unit = tile.getUnit();
 
-            if (unit && unit.getOwner().id === playerId) {
+            if (unit && unit.ownerId === playerId) {
                 units.push(unit);
             }
         });
@@ -53,7 +50,7 @@ class GameBoard {
         const hexGrid = new HexGrid(WIDTH, HEIGHT);
 
         // set up obstacles for enemy players
-        const opposingPlayer = unit.getOwner().id === 1 ? 2 : 1;
+        const opposingPlayer = unit.ownerId === '1' ? '2' : '1';
         const locations = this.getAllLocations();
         const units = [];
 
@@ -61,7 +58,7 @@ class GameBoard {
             const tile = this.getTileAt(location);
             const unit = tile.getUnit();
 
-            if (unit && unit.getOwner().id === opposingPlayer) {
+            if (unit && unit.ownerId === opposingPlayer) {
                 hexGrid.setObstacle(location);
             }
         });

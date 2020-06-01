@@ -1,6 +1,6 @@
 class Unit {
-    constructor(owner) {
-        this.owner = owner;
+    constructor(ownerId) {
+        this.ownerId = ownerId;
     }
 
     toDisplayString() {

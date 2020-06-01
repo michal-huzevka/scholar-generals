@@ -42,7 +42,7 @@ class Game {
         const tile = board.getTileAt(fromLocation);
         const unit = tile.getUnit();
 
-        if (unit.owner !== state.activePlayer) {
+        if (unit.ownerId !== state.getActivePlayerId()) {
             return false;
         }
 
@@ -58,16 +58,12 @@ class Game {
     endTurn = () => {
         const state = cloneDeep(this.gameState);
 
-        const units = state.getBoard().getAllUnitsForPlayer(state.activePlayer.id);
+        const units = state.getBoard().getAllUnitsForPlayer(state.getActivePlayerId());
 
         units.forEach((unit) => unit.refresh());
-        let activePlayerId = state.activePlayer.id + 1;
+        const activePlayerId = state.getActivePlayerId() === '1' ? '2' : '1';
 
-        if (activePlayerId === 3) {
-            activePlayerId = 1;
-        }
-
-        state.activePlayer = state.getPlayerById(activePlayerId);
+        state.setActivePlayer(activePlayerId);
 
         this.setState(state);
     }
