@@ -50,7 +50,7 @@ class GameBoard {
     }
 
     getReachableLocations(location, unit) {
-        const hexGrid = cloneDeep(this.hexGrid);
+        const hexGrid = new HexGrid(WIDTH, HEIGHT);
 
         // set up obstacles for enemy players
         const opposingPlayer = unit.getOwner().id === 1 ? 2 : 1;
