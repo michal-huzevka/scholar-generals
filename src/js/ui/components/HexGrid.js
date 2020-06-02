@@ -4,7 +4,7 @@ import HexGrid from 'js/utils/hexGrid/HexGrid';
 import withGlobalContext from 'js/ui/withGlobalContext';
 import Tile from 'js/ui/components/Tile';
 
-class HexGridView extends React.Component {
+class HexGridComponent extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -22,9 +22,9 @@ class HexGridView extends React.Component {
     }
 
     renderChildren() {
-        const gameBoard = this.props.board;
+        const gridView = this.props.gridView;
 
-        return gameBoard.getAllLocations().map((location) => {
+        return gridView.getAllLocations().map((location) => {
             const isSelected = _.isEqual(location, this.state.selectedLocation);
             const inRange = _.find(this.state.locationsInRange, (inRange) => {
                 return _.isEqual(inRange, location);
@@ -43,19 +43,19 @@ class HexGridView extends React.Component {
     }
 
     handleTileSelect = (location) => {
-        const board = this.props.board;
-        const tile = board.getTileAt(location);
+        const gridView = this.props.gridView;
+        const tile = gridView.getTileAt(location);
         const unit = tile.getUnit();
         
         if (unit) {
             this.setState({
                 selectedLocation: location,
-                locationsInRange: board.getReachableLocations(location, unit)
+                locationsInRange: gridView.getReachableLocations(location, unit)
             });
         } else {
             if (
                 this.state.selectedLocation &&
-                board.isUnitInMoveRange(this.state.selectedLocation, location)
+                gridView.isUnitInMoveRange(this.state.selectedLocation, location)
             ) {
                 // do a move
                 this.props.moveUnit(this.state.selectedLocation, location);
@@ -69,9 +69,9 @@ class HexGridView extends React.Component {
     }
 }
 
-export default withGlobalContext(HexGridView, (game) => {
+export default withGlobalContext(HexGridComponent, (game) => {
     return {
-        board: game.getState().getBoard(),
+        gridView: game.getGridView(),
         moveUnit: game.moveUnit
     };
 });

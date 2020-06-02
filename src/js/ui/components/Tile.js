@@ -49,7 +49,7 @@ class Tile extends React.Component {
 
 export default withGlobalContext(Tile, (game, ownProps) => {
     return {
-        tile: game.getState().getBoard().getTileAt(ownProps.location),
+        tile: game.getGridView().getTileAt(ownProps.location),
         getPlayerById: game.getState().getPlayerById
     };
 });

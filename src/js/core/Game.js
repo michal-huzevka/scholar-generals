@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import GameState from 'js/core/GameState';
 import initialGameState from 'js/core/initialGameState';
+import GridView from 'js/core/views/GridView';
 import cloneDeep from 'js/utils/cloneDeep';
 
 class Game {
@@ -10,6 +11,10 @@ class Game {
         this.eventListeners = {
             'step:increase': []
         };
+    }
+
+    getGridView() {
+        return new GridView(this.gameState);
     }
 
     onEvent(eventName, listener) {
@@ -39,18 +44,18 @@ class Game {
     moveUnit = (fromLocation, toLocation) => {
         //TODO: check this is a valid move
         let state = this.gameState;
-        const board = state.getBoard();
-        let tile = board.getTileAt(fromLocation);
+        const gridView = this.getGridView();
+        let tile = gridView.getTileAt(fromLocation);
         let unit = tile.getUnit();
 
         if (unit.getOwner() !== state.getActivePlayerId()) {
             return false;
         }
 
-        unit = unit.spendMoves(board.getDistance(fromLocation, toLocation));
+        unit = unit.spendMoves(gridView.getDistance(fromLocation, toLocation));
 
         const newTile = tile.tile.setUnitId(null);
-        const newTile2 = board.getTileAt(toLocation).tile.setUnitId(unit.getId());
+        const newTile2 = gridView.getTileAt(toLocation).tile.setUnitId(unit.getId());
 
         state = state.setModel(unit);
         state = state.setModel(newTile);
@@ -62,7 +67,7 @@ class Game {
     endTurn = () => {
         let state = this.gameState;
 
-        const units = state.getBoard().getAllUnitsForPlayer(state.getActivePlayerId());
+        const units = this.getGridView().getAllUnitsForPlayer(state.getActivePlayerId());
 
         units.forEach((unit) => {
             state = state.setModel(unit.refresh());

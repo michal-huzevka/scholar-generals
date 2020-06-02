@@ -1,15 +1,10 @@
 import _ from 'underscore';
 import Player from 'js/core/models/Player';
-import ConnectedGrid from 'js/core/connectedModels/ConnectedGrid';
 import ModelFactory from 'js/core/ModelFactory';
 
 class GameState {
     constructor(store) {
         this.store = store;
-    }
-
-    getBoard() {
-        return new ConnectedGrid(this);
     }
 
     getActivePlayerId() {
@@ -32,7 +27,7 @@ class GameState {
         let id = model.getId();
         const type = model.getModelType();
         if (!id) {
-            id = '1';
+            id = 'default';
         }
 
         const store = _.clone(this.store);
@@ -46,7 +41,7 @@ class GameState {
     
     getModel(type, id) {
         if (!id) {
-            id = '1';
+            id = 'default';
         }
         return this.store.models[type][id];
     }

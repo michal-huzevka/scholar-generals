@@ -1,18 +1,18 @@
 import _ from 'underscore';
 import Footman from 'js/core/unitTypes/Footman';
-import ConnectedTile from 'js/core/connectedModels/ConnectedTile';
+import TileView from 'js/core/views/TileView';
 import Player from 'js/core/models/Player';
 import Grid from 'js/core/models/Grid';
 import HexGrid from 'js/utils/hexGrid/HexGrid';
 
-class ConnectedGrid {
+class GridView {
     constructor(gameState) {
         this.grid = gameState.getModel(Grid.staticGetModelType());
         this.hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
         this.hexGrid.getAllLocations().forEach((location) => {
             const id = location.x + ',' + location.y;
-            const tile = new ConnectedTile(gameState, id);
+            const tile = new TileView(gameState, id);
 
             this.hexGrid.setLocationData(location, tile);
         });
@@ -76,4 +76,4 @@ class ConnectedGrid {
     }
 }
 
-export default ConnectedGrid;
+export default GridView;

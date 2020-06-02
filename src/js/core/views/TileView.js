@@ -1,5 +1,5 @@
 
-class ConnectedTile {
+class TileView {
     constructor(gameState, tileId) {
         this.tile = gameState.getModel('Tile', tileId);
         if (this.tile.getUnitId()) {
@@ -18,4 +18,4 @@ class ConnectedTile {
     }
 }
 
-export default ConnectedTile;
+export default TileView;

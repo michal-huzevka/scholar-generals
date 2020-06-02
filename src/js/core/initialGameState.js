@@ -44,7 +44,7 @@ const initialGameState = () => {
                 [player2.getId()]: player2,
             },
             'Grid': {
-                '1': grid
+                'default': grid
             },
             'Tile': tiles,
             'Unit': units
@@ -52,7 +52,6 @@ const initialGameState = () => {
         activePlayerId: player1.getId(),
         step: 0
     };
-    console.log(store);
 
     const gameState = new GameState(store);
 
