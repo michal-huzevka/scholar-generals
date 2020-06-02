@@ -1,32 +1,15 @@
-import GameBoard from 'js/core/GameBoard';
 import Player from 'js/core/models/Player';
+import ConnectedGrid from 'js/core/connectedModels/ConnectedGrid';
 import ModelFactory from 'js/core/ModelFactory';
 
 class GameState {
-    constructor() {
-        this.gameBoard = new GameBoard();
-        this.step = 0;
-        this.store = {
-            collections: {
-                'Player': {
-                    '1': {
-                        color: 'red'
-                    },
-                    '2': {
-                        color: 'blue'
-                    }
-                }
-            },
-            singles: {
-
-            },
-            activePlayerId: '1'
-        };
-        console.log(this.store);
+    constructor(store) {
+        this.store = store;
+        this.board = new ConnectedGrid(this);
     }
 
     getBoard() {
-        return this.gameBoard;
+        return this.board;
     }
 
     getActivePlayerId() {
@@ -34,7 +17,7 @@ class GameState {
     }
 
     getActivePlayer() {
-        return this.getModel(this.store.activePlayerId, 'Player');
+        return this.getModel('Player', this.store.activePlayerId);
     }
 
     //TODO make immutable
@@ -42,14 +25,15 @@ class GameState {
         this.store.activePlayerId = id;
     }
     
-    getModel(id, type) {
-        const data = this.store.collections[type][id];
-
-        return ModelFactory.build(id, data, type);
+    getModel(type, id) {
+        if (!id) {
+            id = '1';
+        }
+        return this.store.models[type][id];
     }
 
     getPlayerById = (id) => {
-        return this.getModel(id, 'Player');
+        return this.getModel('Player', id);
     }
 }
 

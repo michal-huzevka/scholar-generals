@@ -7,7 +7,7 @@ class GlobalContextProvider extends React.Component {
         super(props, context);
 
         this.state = {
-            step: this.props.game.getState().step,
+            step: this.props.game.getState().store.step,
             game: this.props.game
         };
     }

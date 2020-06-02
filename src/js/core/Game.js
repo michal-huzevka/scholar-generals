@@ -1,10 +1,11 @@
 import _ from 'underscore';
 import GameState from 'js/core/GameState';
+import initialGameState from 'js/core/initialGameState';
 import cloneDeep from 'js/utils/cloneDeep';
 
 class Game {
     constructor() {
-        this.gameState = new GameState();
+        this.gameState = initialGameState();
 
         this.eventListeners = {
             'step:increase': []
@@ -30,9 +31,9 @@ class Game {
     }
 
     setState(state) {
-        state.step++;
+        state.store.step++;
         this.gameState = state;
-        this.trigger('step:increase', state.step);
+        this.trigger('step:increase', state.store.step);
     }
 
     moveUnit = (fromLocation, toLocation) => {

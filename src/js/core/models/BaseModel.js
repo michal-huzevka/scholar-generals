@@ -1,6 +1,6 @@
 class BaseModel {
-    constructor(id) {
-        this.id = id;
+    constructor(data) {
+        this.data = data;
     }
 
     getModelType() {
@@ -8,7 +8,7 @@ class BaseModel {
     }
 
     getId() {
-        return this.id;
+        return this.data.id;
     }
 
     getData() {

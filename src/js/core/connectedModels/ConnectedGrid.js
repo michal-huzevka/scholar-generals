@@ -2,15 +2,15 @@ import _ from 'underscore';
 import Footman from 'js/core/unitTypes/Footman';
 import Tile from 'js/core/Tile';
 import Player from 'js/core/models/Player';
+import Grid from 'js/core/models/Grid';
 import BOARD_CONFIG from 'config/board';
 import HexGrid from 'js/utils/hexGrid/HexGrid';
 
-const WIDTH = BOARD_CONFIG.width;
-const HEIGHT = BOARD_CONFIG.height;
+class ConnectedGrid {
+    constructor(gameState) {
+        this.grid = gameState.getModel(Grid.staticGetModelType());
+        this.hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
-class GameBoard {
-    constructor() {
-        this.hexGrid = new HexGrid(WIDTH, HEIGHT);
         this.hexGrid.getAllLocations().forEach((location) => {
             this.hexGrid.setLocationData(location, new Tile());
         });
@@ -47,7 +47,7 @@ class GameBoard {
     }
 
     getReachableLocations(location, unit) {
-        const hexGrid = new HexGrid(WIDTH, HEIGHT);
+        const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
         // set up obstacles for enemy players
         const opposingPlayer = unit.ownerId === '1' ? '2' : '1';
@@ -80,4 +80,4 @@ class GameBoard {
     }
 }
 
-export default GameBoard;
+export default ConnectedGrid;

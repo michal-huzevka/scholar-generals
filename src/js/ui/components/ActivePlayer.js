@@ -3,9 +3,9 @@ import withGlobalContext from 'js/ui/withGlobalContext';
 
 class ActivePlayer extends React.Component {
     render() {
-        const { id, color } = this.props.player;
+        const id = this.props.player.getId();
         const style = {
-            color
+            color: this.props.player.getColor()
         };
 
         return (

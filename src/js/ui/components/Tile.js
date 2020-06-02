@@ -18,7 +18,7 @@ class Tile extends React.Component {
             const ownerId = tile.getUnit().ownerId;
 
             unitName = tile.getUnit().toDisplayString();
-            color = 'player-' + this.props.getPlayerById(ownerId).color;
+            color = 'player-' + this.props.getPlayerById(ownerId).getColor();
         }
         const transformStr = `translate(${point.x + xOffset}, ${point.y + yOffset})`;
         const textClassName = `tile-text ${color}`;

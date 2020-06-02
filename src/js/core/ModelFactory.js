@@ -1,7 +1,7 @@
 import Player from 'js/core/models/Player';
 
 class ModelFactory {
-    static build(id, data, modelType) {
+    static build(data, modelType) {
         let Model;
 
         switch(modelType) {
@@ -14,7 +14,7 @@ class ModelFactory {
                 console.error('no Model available for the given modelType');
         }
 
-        return new Model(id, data);
+        return new Model(data);
     }
 
 }
