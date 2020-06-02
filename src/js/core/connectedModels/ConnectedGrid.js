@@ -27,7 +27,7 @@ class ConnectedGrid {
             const tile = this.getTileAt(location);
             const unit = tile.getUnit();
 
-            if (unit && unit.ownerId === playerId) {
+            if (unit && unit.getOwner() === playerId) {
                 units.push(unit);
             }
         });
@@ -47,7 +47,7 @@ class ConnectedGrid {
         const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
         // set up obstacles for enemy players
-        const opposingPlayer = unit.ownerId === '1' ? '2' : '1';
+        const opposingPlayer = unit.getOwner() === '1' ? '2' : '1';
         const locations = this.getAllLocations();
         const units = [];
 
@@ -55,12 +55,12 @@ class ConnectedGrid {
             const tile = this.getTileAt(location);
             const unit = tile.getUnit();
 
-            if (unit && unit.ownerId === opposingPlayer) {
+            if (unit && unit.getOwner() === opposingPlayer) {
                 hexGrid.setObstacle(location);
             }
         });
 
-        return hexGrid.getReachableLocations(location, unit.movesLeft);
+        return hexGrid.getReachableLocations(location, unit.getMovesLeft());
     }
 
     getDistance = (firstLocation, secondLocation) => {

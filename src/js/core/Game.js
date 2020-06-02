@@ -41,13 +41,13 @@ class Game {
         const state = cloneDeep(this.gameState);
         const board = state.getBoard();
         const tile = board.getTileAt(fromLocation);
-        const unit = tile.getUnit();
+        let unit = tile.getUnit();
 
-        if (unit.ownerId !== state.getActivePlayerId()) {
+        if (unit.getOwner() !== state.getActivePlayerId()) {
             return false;
         }
 
-        unit.movesLeft -= board.getDistance(fromLocation, toLocation);
+        unit = unit.spendMoves(board.getDistance(fromLocation, toLocation));
 
         tile.setUnit(null);
 

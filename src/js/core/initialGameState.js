@@ -4,7 +4,7 @@ import GameState from 'js/core/GameState';
 
 import BOARD_CONFIG from 'config/board';
 import Tile from 'js/core/models/Tile';
-import Footman from 'js/core/unitTypes/Footman';
+import Unit from 'js/core/models/Unit';
 
 const WIDTH = BOARD_CONFIG.width;
 const HEIGHT = BOARD_CONFIG.height;
@@ -24,11 +24,9 @@ const initialGameState = () => {
     }
 
     BOARD_CONFIG.units.forEach((unit) => {
-        if (unit.type === 'footman') {
-            const id = unit.location.x + ',' + unit.location.y;
+        const id = unit.location.x + ',' + unit.location.y;
 
-            tiles[id].setUnit(new Footman(unit.owner));
-        }
+        tiles[id].setUnit(new Unit({ owner: unit.owner, type: unit.type }));
     });
 
     const store = {

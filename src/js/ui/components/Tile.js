@@ -15,7 +15,7 @@ class Tile extends React.Component {
         let color = '';
 
         if (tile.getUnit()) {
-            const ownerId = tile.getUnit().ownerId;
+            const ownerId = tile.getUnit().getOwner();
 
             unitName = tile.getUnit().toDisplayString();
             color = 'player-' + this.props.getPlayerById(ownerId).getColor();
