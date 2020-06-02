@@ -2,22 +2,23 @@ import React from 'react';
 import HexGrid from 'js/utils/hexGrid/HexGrid';
 import withGlobalContext from 'js/ui/withGlobalContext';
 import constants from 'js/ui/constants';
+import PlayersView from 'js/core/views/PlayersView';
 
 const { HEXAGON_SIZE } = constants;
 
 class Tile extends React.Component {    
     render() {
-        const { location, tile, handleTileSelect } = this.props;
+        const { location, tileView, handleTileSelect } = this.props;
         const xOffset = 10;
         const yOffset = 20;
         const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
         let unitName = '';
         let color = '';
 
-        if (tile.getUnit()) {
-            const ownerId = tile.getUnit().getOwner();
+        if (tileView.getUnit()) {
+            const ownerId = tileView.getUnit().getOwner();
 
-            unitName = tile.getUnit().toDisplayString();
+            unitName = tileView.getUnit().toDisplayString();
             color = 'player-' + this.props.getPlayerById(ownerId).getColor();
         }
         const transformStr = `translate(${point.x + xOffset}, ${point.y + yOffset})`;
@@ -49,7 +50,7 @@ class Tile extends React.Component {
 
 export default withGlobalContext(Tile, (game, ownProps) => {
     return {
-        tile: game.getGridView().getTileAt(ownProps.location),
-        getPlayerById: game.getState().getPlayerById
+        tileView: game.getGridView().getTileView(ownProps.location),
+        getPlayerById: new PlayersView(game.getState()).getPlayerById
     };
 });

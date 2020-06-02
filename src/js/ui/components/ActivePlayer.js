@@ -1,5 +1,6 @@
 import React from 'react';
 import withGlobalContext from 'js/ui/withGlobalContext';
+import PlayersView from 'js/core/views/PlayersView';
 
 class ActivePlayer extends React.Component {
     render() {
@@ -21,7 +22,7 @@ class ActivePlayer extends React.Component {
 
 export default withGlobalContext(ActivePlayer, (game) => {
     return {
-        player: game.getState().getActivePlayer(),
+        player: new PlayersView(game.getState()).getActivePlayer(),
         endTurn: game.endTurn
     };
 });

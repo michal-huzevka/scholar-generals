@@ -7,18 +7,14 @@ class GameState {
         this.store = store;
     }
 
-    getActivePlayerId() {
-        return this.store.activePlayerId;
+    get(key) {
+        return this.store[key];
     }
 
-    getActivePlayer() {
-        return this.getModel('Player', this.store.activePlayerId);
-    }
-
-    setActivePlayer(id) {
+    set(key, value) {
         const store = _.clone(this.store);
 
-        store.activePlayerId = id;
+        store[key] = value;
 
         return new GameState(store);
     }
@@ -44,10 +40,6 @@ class GameState {
             id = 'default';
         }
         return this.store.models[type][id];
-    }
-
-    getPlayerById = (id) => {
-        return this.getModel('Player', id);
     }
 }
 

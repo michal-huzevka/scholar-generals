@@ -44,7 +44,7 @@ class HexGridComponent extends React.Component {
 
     handleTileSelect = (location) => {
         const gridView = this.props.gridView;
-        const tile = gridView.getTileAt(location);
+        const tile = gridView.getTileView(location);
         const unit = tile.getUnit();
         
         if (unit) {

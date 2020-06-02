@@ -23,7 +23,7 @@ class GridView {
         const units = [];
 
         locations.forEach((location) => {
-            const tile = this.getTileAt(location);
+            const tile = this.getTileView(location);
             const unit = tile.getUnit();
 
             if (unit && unit.getOwner() === playerId) {
@@ -37,8 +37,16 @@ class GridView {
     getAllLocations() {
         return this.hexGrid.getAllLocations();
     }
+    
+    getUnit(location) {
+        return this.getTileView(location).getUnit();
+    }
 
-    getTileAt(location) {
+    getTile(location) {
+        return this.getTileView(location).getTile();
+    }
+
+    getTileView(location) {
         return this.hexGrid.getLocationData(location);
     }
 
@@ -51,7 +59,7 @@ class GridView {
         const units = [];
 
         locations.forEach((location) => {
-            const tile = this.getTileAt(location);
+            const tile = this.getTileView(location);
             const unit = tile.getUnit();
 
             if (unit && unit.getOwner() === opposingPlayer) {
@@ -67,7 +75,7 @@ class GridView {
     };
 
     isUnitInMoveRange(unitLocation, targetLocation) {
-        const unit = this.getTileAt(unitLocation).getUnit();
+        const unit = this.getTileView(unitLocation).getUnit();
         const locations = this.getReachableLocations(unitLocation, unit);
 
         return _.find(locations, (location) => {

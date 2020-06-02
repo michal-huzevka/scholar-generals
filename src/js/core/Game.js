@@ -2,6 +2,8 @@ import _ from 'underscore';
 import GameState from 'js/core/GameState';
 import initialGameState from 'js/core/initialGameState';
 import GridView from 'js/core/views/GridView';
+import GlobalView from 'js/core/views/GlobalView';
+import PlayersView from 'js/core/views/PlayersView';
 import cloneDeep from 'js/utils/cloneDeep';
 
 class Game {
@@ -36,45 +38,51 @@ class Game {
     }
 
     setState(state) {
-        state.store.step++;
-        this.gameState = state;
-        this.trigger('step:increase', state.store.step);
+        const step = state.get('step') + 1;
+
+        this.gameState = state.set('step', step);
+        this.trigger('step:increase', step);
     }
 
     moveUnit = (fromLocation, toLocation) => {
         //TODO: check this is a valid move
         let state = this.gameState;
         const gridView = this.getGridView();
-        let tile = gridView.getTileAt(fromLocation);
-        let unit = tile.getUnit();
+        const playersView = new PlayersView(state);
+        let fromTile = gridView.getTile(fromLocation);
+        let toTile = gridView.getTile(toLocation);
+        let unit = gridView.getUnit(fromLocation);
 
-        if (unit.getOwner() !== state.getActivePlayerId()) {
+        if (unit.getOwner() !== playersView.getActivePlayerId()) {
             return false;
         }
 
+        // updates
         unit = unit.spendMoves(gridView.getDistance(fromLocation, toLocation));
+        fromTile = fromTile.setUnitId(null);
+        toTile = toTile.setUnitId(unit.getId());
 
-        const newTile = tile.tile.setUnitId(null);
-        const newTile2 = gridView.getTileAt(toLocation).tile.setUnitId(unit.getId());
-
-        state = state.setModel(unit);
-        state = state.setModel(newTile);
-        state = state.setModel(newTile2);
+        state = state
+            .setModel(unit)
+            .setModel(fromTile)
+            .setModel(toTile);
 
         this.setState(state);
     }
 
     endTurn = () => {
         let state = this.gameState;
+        const playersView = new PlayersView(state);
+        const globalView = new GlobalView(state);
 
-        const units = this.getGridView().getAllUnitsForPlayer(state.getActivePlayerId());
+        const units = globalView.getAllUnitsForActivePlayer();
 
         units.forEach((unit) => {
             state = state.setModel(unit.refresh());
         });
-        const activePlayerId = state.getActivePlayerId() === '1' ? '2' : '1';
+        const activePlayerId = playersView.getActivePlayerId() === '1' ? '2' : '1';
 
-        state = state.setActivePlayer(activePlayerId);
+        state = state.set('activePlayerId', activePlayerId);
 
         this.setState(state);
     }
