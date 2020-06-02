@@ -23,6 +23,6 @@ class ActivePlayer extends React.Component {
 export default withGlobalContext(ActivePlayer, (game) => {
     return {
         player: new PlayersView(game.getState()).getActivePlayer(),
-        endTurn: game.endTurn
+        endTurn: () => game.doAction({ type: 'END_TURN' })
     };
 });

@@ -58,7 +58,13 @@ class HexGridComponent extends React.Component {
                 gridView.isUnitInMoveRange(this.state.selectedLocation, location)
             ) {
                 // do a move
-                this.props.moveUnit(this.state.selectedLocation, location);
+                this.props.doAction({
+                    type: 'MOVE_UNIT',
+                    data: {
+                        fromLocation: this.state.selectedLocation,
+                        toLocation: location
+                    }
+                });
             }
 
             this.setState({
@@ -72,6 +78,6 @@ class HexGridComponent extends React.Component {
 export default withGlobalContext(HexGridComponent, (game) => {
     return {
         gridView: game.getGridView(),
-        moveUnit: game.moveUnit
+        doAction: game.doAction
     };
 });
