@@ -27,6 +27,22 @@ class GameState {
 
         return new GameState(store);
     }
+
+    setModel(model) {
+        let id = model.getId();
+        const type = model.getModelType();
+        if (!id) {
+            id = '1';
+        }
+
+        const store = _.clone(this.store);
+        
+        store.models = _.clone(store.models);
+        store.models[type] = _.clone(store.models[type]);
+        store.models[type][id] = model;
+
+        return new GameState(store);
+    }
     
     getModel(type, id) {
         if (!id) {

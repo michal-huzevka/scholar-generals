@@ -23,10 +23,18 @@ const initialGameState = () => {
         }
     }
 
-    BOARD_CONFIG.units.forEach((unit) => {
-        const id = unit.location.x + ',' + unit.location.y;
+    const units = {};
+    let unitIdInteger = 0;
 
-        tiles[id].setUnit(new Unit({ owner: unit.owner, type: unit.type }));
+    BOARD_CONFIG.units.forEach((unitConfig) => {
+        const id = unitConfig.location.x + ',' + unitConfig.location.y;
+        const unitId = unitIdInteger.toString();
+        const unit = new Unit({ id: unitId, owner: unitConfig.owner, type: unitConfig.type });
+
+        units[unitId] = unit;
+        tiles[id] = tiles[id].setUnitId(unitId);
+
+        unitIdInteger++;
     });
 
     const store = {
@@ -38,11 +46,13 @@ const initialGameState = () => {
             'Grid': {
                 '1': grid
             },
-            'Tile': tiles
+            'Tile': tiles,
+            'Unit': units
         },
         activePlayerId: player1.getId(),
         step: 0
     };
+    console.log(store);
 
     const gameState = new GameState(store);
 

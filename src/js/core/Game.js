@@ -38,9 +38,9 @@ class Game {
 
     moveUnit = (fromLocation, toLocation) => {
         //TODO: check this is a valid move
-        const state = cloneDeep(this.gameState);
+        let state = this.gameState;
         const board = state.getBoard();
-        const tile = board.getTileAt(fromLocation);
+        let tile = board.getTileAt(fromLocation);
         let unit = tile.getUnit();
 
         if (unit.getOwner() !== state.getActivePlayerId()) {
@@ -49,24 +49,29 @@ class Game {
 
         unit = unit.spendMoves(board.getDistance(fromLocation, toLocation));
 
-        tile.setUnit(null);
+        const newTile = tile.tile.setUnitId(null);
+        const newTile2 = board.getTileAt(toLocation).tile.setUnitId(unit.getId());
 
-        board.getTileAt(toLocation).setUnit(unit);
+        state = state.setModel(unit);
+        state = state.setModel(newTile);
+        state = state.setModel(newTile2);
 
         this.setState(state);
     }
 
     endTurn = () => {
-        const state = cloneDeep(this.gameState);
+        let state = this.gameState;
 
         const units = state.getBoard().getAllUnitsForPlayer(state.getActivePlayerId());
 
-        units.forEach((unit) => unit.refresh());
+        units.forEach((unit) => {
+            state = state.setModel(unit.refresh());
+        });
         const activePlayerId = state.getActivePlayerId() === '1' ? '2' : '1';
 
-        let newState = state.setActivePlayer(activePlayerId);
+        state = state.setActivePlayer(activePlayerId);
 
-        this.setState(newState);
+        this.setState(state);
     }
 }
 

@@ -36,10 +36,8 @@ class Unit extends BaseModel {
         return this.data.owner;
     }
 
-    //TODO make this immutable
     refresh() {
-        this.data.movesLeft = this.getMoveSpeed();
-        // return this.setField('movesLeft', this.getMoveSpeed());
+        return this.setField('movesLeft', this.getMoveSpeed());
     }
 
     setField(key, value) {
