@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import GameState from 'js/core/GameState';
 import initialGameState from 'js/core/initialGameState';
+import Player from 'js/core/models/Player';
 import GridView from 'js/core/views/GridView';
 import GlobalView from 'js/core/views/GlobalView';
 import PlayersView from 'js/core/views/PlayersView';
@@ -9,7 +10,6 @@ import cloneDeep from 'js/utils/cloneDeep';
 class Game {
     constructor() {
         this.gameState = initialGameState();
-
         this.eventListeners = {
             'step:increase': []
         };
@@ -80,7 +80,7 @@ class Game {
         units.forEach((unit) => {
             state = state.setModel(unit.refresh());
         });
-        const activePlayerId = playersView.getActivePlayerId() === '1' ? '2' : '1';
+        const activePlayerId = Player.getOpponentId(playersView.getActivePlayerId());
 
         state = state.set('activePlayerId', activePlayerId);
 

@@ -1,5 +1,4 @@
 import _ from 'underscore';
-import Footman from 'js/core/unitTypes/Footman';
 import TileView from 'js/core/views/TileView';
 import Player from 'js/core/models/Player';
 import Grid from 'js/core/models/Grid';
@@ -54,7 +53,7 @@ class GridView {
         const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
         // set up obstacles for enemy players
-        const opposingPlayer = unit.getOwner() === '1' ? '2' : '1';
+        const opposingPlayer = Player.getOpponentId(unit.getOwner());
         const locations = this.getAllLocations();
         const units = [];
 

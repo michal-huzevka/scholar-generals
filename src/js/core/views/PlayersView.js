@@ -1,4 +1,3 @@
-
 import Player from 'js/core/models/Player';
 
 class PlayersView {

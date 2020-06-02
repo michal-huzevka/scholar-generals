@@ -1,6 +1,4 @@
 import _ from 'underscore';
-import Player from 'js/core/models/Player';
-import ModelFactory from 'js/core/ModelFactory';
 
 class GameState {
     constructor(store) {
