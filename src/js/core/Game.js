@@ -64,9 +64,9 @@ class Game {
         units.forEach((unit) => unit.refresh());
         const activePlayerId = state.getActivePlayerId() === '1' ? '2' : '1';
 
-        state.setActivePlayer(activePlayerId);
+        let newState = state.setActivePlayer(activePlayerId);
 
-        this.setState(state);
+        this.setState(newState);
     }
 }
 

@@ -3,6 +3,8 @@ import Grid from 'js/core/models/Grid';
 import GameState from 'js/core/GameState';
 
 import BOARD_CONFIG from 'config/board';
+import Tile from 'js/core/models/Tile';
+import Footman from 'js/core/unitTypes/Footman';
 
 const WIDTH = BOARD_CONFIG.width;
 const HEIGHT = BOARD_CONFIG.height;
@@ -11,6 +13,24 @@ const initialGameState = () => {
     const player1 = new Player({ id: '1', color: 'red' });
     const player2 = new Player({ id: '2', color: 'blue'});
     const grid = new Grid({ id: '1', width: WIDTH, height: HEIGHT });
+    const tiles = {};
+
+    for (let x = 0; x<WIDTH; x++) {
+        for (let y = 0; y<HEIGHT; y++) {
+            const id = `${x},${y}`;
+
+            tiles[id] = new Tile({ id });
+        }
+    }
+
+    BOARD_CONFIG.units.forEach((unit) => {
+        if (unit.type === 'footman') {
+            const id = unit.location.x + ',' + unit.location.y;
+
+            tiles[id].setUnit(new Footman(unit.owner));
+        }
+    });
+
     const store = {
         models: {
             'Player': {
@@ -19,7 +39,8 @@ const initialGameState = () => {
             },
             'Grid': {
                 '1': grid
-            }
+            },
+            'Tile': tiles
         },
         activePlayerId: player1.getId(),
         step: 0

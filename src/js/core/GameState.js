@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import Player from 'js/core/models/Player';
 import ConnectedGrid from 'js/core/connectedModels/ConnectedGrid';
 import ModelFactory from 'js/core/ModelFactory';
@@ -5,11 +6,10 @@ import ModelFactory from 'js/core/ModelFactory';
 class GameState {
     constructor(store) {
         this.store = store;
-        this.board = new ConnectedGrid(this);
     }
 
     getBoard() {
-        return this.board;
+        return new ConnectedGrid(this);
     }
 
     getActivePlayerId() {
@@ -20,9 +20,12 @@ class GameState {
         return this.getModel('Player', this.store.activePlayerId);
     }
 
-    //TODO make immutable
     setActivePlayer(id) {
-        this.store.activePlayerId = id;
+        const store = _.clone(this.store);
+
+        store.activePlayerId = id;
+
+        return new GameState(store);
     }
     
     getModel(type, id) {

@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import Footman from 'js/core/unitTypes/Footman';
-import Tile from 'js/core/Tile';
+import Tile from 'js/core/models/Tile';
 import Player from 'js/core/models/Player';
 import Grid from 'js/core/models/Grid';
 import BOARD_CONFIG from 'config/board';
@@ -12,14 +12,11 @@ class ConnectedGrid {
         this.hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
         this.hexGrid.getAllLocations().forEach((location) => {
-            this.hexGrid.setLocationData(location, new Tile());
+            const id = location.x + ',' + location.y;
+
+            this.hexGrid.setLocationData(location, gameState.getModel('Tile', id));
         });
 
-        BOARD_CONFIG.units.forEach((unit) => {
-            if (unit.type === 'footman') {
-                this.hexGrid.getLocationData(unit.location).setUnit(new Footman(unit.owner));
-            }
-        });
     }
 
     getAllUnitsForPlayer(playerId) {
