@@ -1,24 +1,22 @@
 import GridView from 'js/core/views/GridView';
-import PlayersView from 'js/core/views/PlayersView';
 import Player from 'js/core/models/Player';
 
-class MoveUnitHandler {
+class MoveOneSpaceHandler {
     getStepType() {
-        return 'MOVE_UNIT';
+        return 'MOVE_ONE_SPACE';
     }
 
     computeStep(step, state, remainingSteps) {
+        // Assume the move is always one space
         const { fromLocation, toLocation } = step.data;
         const gridView = new GridView(state);
-        const playersView = new PlayersView(state);
         let fromTile = gridView.getTile(fromLocation);
         let toTile = gridView.getTile(toLocation);
         let unit = gridView.getUnit(fromLocation);
     
-        const path = gridView.getPath(fromLocation, toLocation);
-    
-        unit = unit.spendMoves(path.length);
-        fromTile = fromTile.setUnitId(null);
+        unit = unit.spendMoves(1);
+
+        fromTile = fromTile.removeUnit();
         toTile = toTile.setUnitId(unit.getId());
     
         state = state
@@ -33,4 +31,4 @@ class MoveUnitHandler {
     }
 }
 
-export default MoveUnitHandler;
+export default MoveOneSpaceHandler;

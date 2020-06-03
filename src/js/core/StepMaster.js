@@ -1,10 +1,10 @@
-import MoveUnitHandler from 'js/core/stepHandlers/MoveUnitHandler';
+import MoveOneSpaceHandler from 'js/core/stepHandlers/MoveOneSpaceHandler';
 import EndTurnHandler from 'js/core/stepHandlers/EndTurnHandler';
 
 class StepMaster {
     constructor() {
         this.handlers = [
-            new MoveUnitHandler(),
+            new MoveOneSpaceHandler(),
             new EndTurnHandler()
         ];
     }

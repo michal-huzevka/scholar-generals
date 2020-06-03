@@ -4,6 +4,7 @@ import initialGameState from 'js/core/initialGameState';
 import GridView from 'js/core/views/GridView';
 import ActionMaster from 'js/core/ActionMaster';
 import StepMaster from 'js/core/StepMaster';
+import GameHistory from 'js/core/GameHistory';
 
 class Game {
     constructor() {
@@ -13,7 +14,12 @@ class Game {
         };
         this.actionMaster = new ActionMaster();
         this.stepMaster = new StepMaster();
+        this.gameHistory = new GameHistory(this.gameState);
         this.lastAction = null;
+    }
+
+    getHistory() {
+        return this.gameHistory;
     }
 
     getGridView() {
@@ -40,18 +46,20 @@ class Game {
 
     setState(state) {
         this.gameState = state;
+        this.gameHistory.addState(state);
         this.trigger('stepCounter:increase', state.get('stepCounter'));
+
+        document.gs = state;
     }
 
     doAction = (action) => {
-        let state = this.getState();
-        let remainingSteps = this.actionMaster.computeAction(action, state);
+        let remainingSteps = this.actionMaster.computeAction(action, this.getState());
 
         while (remainingSteps.length) {
             const step = remainingSteps[0];
             
             remainingSteps = _.rest(remainingSteps);
-            const result = this.stepMaster.computeStep(step, state, remainingSteps);
+            const result = this.stepMaster.computeStep(step, this.getState(), remainingSteps);
 
             remainingSteps = result.remainingSteps;
 

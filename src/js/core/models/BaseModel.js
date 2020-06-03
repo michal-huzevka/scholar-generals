@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 class BaseModel {
     constructor(data) {
         this.data = data;
@@ -13,6 +15,13 @@ class BaseModel {
 
     getData() {
         return this.data;
+    }
+
+    setField(key, value) {
+        const data = _.clone(this.data);
+
+        data[key] = value;
+        return new this.constructor(data);
     }
 }
 

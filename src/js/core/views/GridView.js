@@ -69,6 +69,7 @@ class GridView {
         return hexGrid.getReachableLocations(location, unit.getMovesLeft());
     }
 
+    // TODO: Make this consider obstacles
     getPath = (firstLocation, secondLocation) => {
         return this.hexGrid.getPath(firstLocation, secondLocation);
     };

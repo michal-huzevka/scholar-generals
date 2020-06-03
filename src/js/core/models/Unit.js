@@ -39,13 +39,6 @@ class Unit extends BaseModel {
     refresh() {
         return this.setField('movesLeft', this.getMoveSpeed());
     }
-
-    setField(key, value) {
-        const data = _.clone(this.data);
-
-        data[key] = value;
-        return new Unit(data);
-    }
 }
 
 export default Unit;
