@@ -49,12 +49,11 @@ class GridView {
         return this.hexGrid.getLocationData(location);
     }
 
-    getReachableLocations(location, unit) {
-        const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
-
+    // needs a good refactor
+    setEnemiesAsObstacles(grid, currentPlayerId) {
         // set up obstacles for enemy players
-        const opposingPlayer = Player.getOpponentId(unit.getOwner());
-        const locations = this.getAllLocations();
+        const opposingPlayer = Player.getOpponentId(currentPlayerId);
+        const locations = grid.getAllLocations();
         const units = [];
 
         locations.forEach((location) => {
@@ -62,20 +61,29 @@ class GridView {
             const unit = tile.getUnit();
 
             if (unit && unit.getOwner() === opposingPlayer) {
-                hexGrid.setObstacle(location);
+                grid.setObstacle(location);
             }
         });
+    }
+
+    getReachableLocations(location, unit) {
+        const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
+
+        this.setEnemiesAsObstacles(hexGrid, unit.getOwner());
 
         return hexGrid.getReachableLocations(location, unit.getMovesLeft());
     }
 
-    // TODO: Make this consider obstacles
     getPath = (firstLocation, secondLocation) => {
-        return this.hexGrid.getPath(firstLocation, secondLocation);
+        const owner = this.getUnit(firstLocation).getOwner();
+        const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
+
+        this.setEnemiesAsObstacles(hexGrid, owner);
+        return hexGrid.getPath(firstLocation, secondLocation);
     };
 
     isUnitInMoveRange(unitLocation, targetLocation) {
-        const unit = this.getTileView(unitLocation).getUnit();
+        const unit = this.getUnit(unitLocation);
         const locations = this.getReachableLocations(unitLocation, unit);
 
         return _.find(locations, (location) => {

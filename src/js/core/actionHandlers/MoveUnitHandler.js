@@ -31,8 +31,6 @@ class MoveUnitHandler {
             fromLocation = location;
         });
 
-        console.log(steps);
-
         return steps;
     }
 }
