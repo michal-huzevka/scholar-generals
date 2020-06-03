@@ -10,10 +10,7 @@ class ActionMaster {
     }
 
     computeAction(action, state) {
-        let result = {
-            state,
-            outcome: null
-        };
+        let result = [];
 
         this.handlers.forEach((handler) => {
             if (handler.getActionType() === action.type) {

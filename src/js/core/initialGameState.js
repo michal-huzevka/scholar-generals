@@ -50,7 +50,8 @@ const initialGameState = () => {
             'Unit': units
         },
         activePlayerId: player1.getId(),
-        step: 0
+        stepCounter: 0,
+        lastStep: null
     };
 
     const gameState = new GameState(store);
