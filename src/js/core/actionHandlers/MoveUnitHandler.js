@@ -18,8 +18,9 @@ class MoveUnitHandler {
         if (unit.getOwner() !== playersView.getActivePlayerId()) {
             return false;
         }
+        const path = gridView.getPath(fromLocation, toLocation);
     
-        unit = unit.spendMoves(gridView.getDistance(fromLocation, toLocation));
+        unit = unit.spendMoves(path.length);
         fromTile = fromTile.setUnitId(null);
         toTile = toTile.setUnitId(unit.getId());
     
@@ -30,7 +31,9 @@ class MoveUnitHandler {
     
         return {
             state,
-            outcome: {}
+            outcome: {
+                path
+            }
         };
     }
 }

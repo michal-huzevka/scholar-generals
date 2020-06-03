@@ -11,6 +11,8 @@ class Game {
             'step:increase': []
         };
         this.actionMaster = new ActionMaster();
+        this.lastAction = null;
+        this.lastActionOutcome = null;
     }
 
     getGridView() {
@@ -45,7 +47,12 @@ class Game {
     doAction = (action) => {
         const result = this.actionMaster.computeAction(action, this.getState())
 
+        this.lastAction = action;
         this.setState(result.state);
+    }
+
+    getLastAction = () => {
+        return this.lastAction;
     }
 }
 

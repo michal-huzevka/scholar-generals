@@ -29,11 +29,12 @@ class HexGrid {
         return new Point(x, y);
     }
 
-    getDistance = (firstLocation, secondLocation) => {
+    getPath = (firstLocation, secondLocation) => {
         const first = new OffsetHex(firstLocation.x, firstLocation.y).toCube();
         const second = new OffsetHex(secondLocation.x, secondLocation.y).toCube();
+        const path = this.hexGridPrivate.getPath(first, second);
 
-        return this.hexGridPrivate.getPath(first, second).length;
+        return path.map(cube => cube.toLocation());
     };
 
     getAllLocations = () => {

@@ -69,8 +69,8 @@ class GridView {
         return hexGrid.getReachableLocations(location, unit.getMovesLeft());
     }
 
-    getDistance = (firstLocation, secondLocation) => {
-        return this.hexGrid.getDistance(firstLocation, secondLocation);
+    getPath = (firstLocation, secondLocation) => {
+        return this.hexGrid.getPath(firstLocation, secondLocation);
     };
 
     isUnitInMoveRange(unitLocation, targetLocation) {

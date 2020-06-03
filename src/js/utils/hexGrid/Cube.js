@@ -34,11 +34,6 @@ class Cube {
         return this.toOffsetHex().toLocation();
     }
 
-    //TODO this needs to change
-    getDistance(cube) {
-        return (Math.abs(this.x - cube.x) + Math.abs(this.y - cube.y) + Math.abs(this.z - cube.z)) / 2;
-    }
-
     getNeighbor(direction) {
         return this.add(CUBE_DIRECTIONS[direction]);
     }
