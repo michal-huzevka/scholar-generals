@@ -17,6 +17,25 @@ class Unit extends BaseModel {
         return this.stats.moveSpeed;
     }
 
+    getMaxHealth() {
+        return this.stats.maxHealth;
+    }
+
+    getHealth() {
+        if (!_.isNumber(this.data.health)) {
+            // if health is undefined, use maxHealth
+            return this.getMaxHealth();
+        } else {
+            return this.data.health;
+        }
+    }
+
+    subtractHealth(points) {
+        const health = this.getHealth() - points;
+
+        return this.setField('health', health);
+    }
+
     getMovesLeft() {
         if (!_.isNumber(this.data.movesLeft)) {
             // if movesLeft is undefined, use moveSpeed

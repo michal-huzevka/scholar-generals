@@ -1,8 +1,8 @@
 import React from 'react';
 import HexGrid from 'js/utils/hexGrid/HexGrid';
 import withGlobalContext from 'js/ui/withGlobalContext';
+import UnitComponent from 'js/ui/components/Unit';
 import constants from 'js/ui/constants';
-import PlayersView from 'js/core/views/PlayersView';
 
 const { HEXAGON_SIZE } = constants;
 
@@ -12,17 +12,8 @@ class Tile extends React.Component {
         const xOffset = 10;
         const yOffset = 20;
         const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
-        let unitName = '';
-        let color = '';
-
-        if (tileView.getUnit()) {
-            const ownerId = tileView.getUnit().getOwner();
-
-            unitName = tileView.getUnit().toDisplayString();
-            color = 'player-' + this.props.getPlayerById(ownerId).getColor();
-        }
+        const unit = tileView.getUnit();
         const transformStr = `translate(${point.x + xOffset}, ${point.y + yOffset})`;
-        const textClassName = `tile-text ${color}`;
         let className = 'tile';
 
         if (this.props.isSelected) {
@@ -42,7 +33,9 @@ class Tile extends React.Component {
                 onClick={() => handleTileSelect(location)}
             >
                 <use className="hex" xlinkHref="#pod"/>
-                <text className={textClassName}>{unitName}</text>
+                { unit &&
+                    <UnitComponent unit={unit} />
+                }
             </g>
         )
     }
@@ -50,7 +43,6 @@ class Tile extends React.Component {
 
 export default withGlobalContext(Tile, (game, ownProps) => {
     return {
-        tileView: game.getHistory().getGridView().getTileView(ownProps.location),
-        getPlayerById: new PlayersView(game.getHistory().getState()).getPlayerById
+        tileView: game.getHistory().getGridView().getTileView(ownProps.location)
     };
 });
