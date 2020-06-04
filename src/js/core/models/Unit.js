@@ -9,10 +9,6 @@ class Unit extends BaseModel {
         this.stats = UNIT_TYPES[data.type];
     }
 
-    toDisplayString() {
-        return this.stats.displayString;
-    }
-
     getMoveSpeed() {
         return this.stats.moveSpeed;
     }

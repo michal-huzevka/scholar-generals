@@ -32,7 +32,7 @@ class Tile extends React.Component {
                 key={location.x + ',' + location.y}
                 onClick={() => handleTileSelect(location)}
             >
-                <use className="hex" xlinkHref="#pod"/>
+                <use className="hex" xlinkHref="#pod" />
                 { unit &&
                     <UnitComponent unit={unit} />
                 }

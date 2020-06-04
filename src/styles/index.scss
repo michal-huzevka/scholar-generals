@@ -13,6 +13,7 @@
     transition: 0.4s;
     cursor: pointer;
     fill: transparent;
+    stroke: #000000;
 }
 
 .hex:hover {
@@ -31,18 +32,6 @@
 .tile-unit-health {
     font-size: 2.5px;
     text-anchor: middle;
-}
-
-.tile-unit-name {
-    font-size: 4px;
-    text-anchor: middle;
-
-    &.player-red {
-        fill: red;
-    }
-    &.player-blue {
-        fill: blue;
-    }
 }
 
 svg {

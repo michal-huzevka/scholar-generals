@@ -1,7 +1,6 @@
 {
     "footman": {
         "moveSpeed": 4,
-        "displayString": "F",
         "maxHealth": 50,
         "damage": 10
     }
