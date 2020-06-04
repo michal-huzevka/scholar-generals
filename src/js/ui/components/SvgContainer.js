@@ -19,7 +19,7 @@ class SvgContainer extends React.Component {
         }
         const str = points.map(point => point.toSvgPoint()).join(',');
 
-        return <polygon strokeWidth='0.5' points={str} />;
+        return <polygon points={str} />;
     }
     
     render() {
