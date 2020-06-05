@@ -9,7 +9,7 @@ module.exports = {
    *
    * The first place Webpack looks to start building the bundle.
    */
-  entry: [paths.src + '/index.js'],
+  entry: [paths.src + '/js/index.js'],
 
   resolve: {
     modules: [
