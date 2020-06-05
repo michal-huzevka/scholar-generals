@@ -9,8 +9,8 @@ const { HEXAGON_SIZE } = constants;
 class Tile extends React.Component {    
     render() {
         const { location, tileView, handleTileSelect } = this.props;
-        const xOffset = 10;
-        const yOffset = 20;
+        const xOffset = 8;
+        const yOffset = 8;
         const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
         const unit = tileView.getUnit();
         const transformStr = `translate(${point.x + xOffset}, ${point.y + yOffset})`;
