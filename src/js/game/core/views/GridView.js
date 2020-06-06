@@ -1,6 +1,4 @@
-import _ from 'underscore';
 import TileView from 'js/game/core/views/TileView';
-import Player from 'js/game/core/models/Player';
 import Grid from 'js/game/core/models/Grid';
 import HexGrid from 'js/game/utils/hexGrid/HexGrid';
 
@@ -47,48 +45,6 @@ class GridView {
 
     getTileView(location) {
         return this.hexGrid.getLocationData(location);
-    }
-
-    // needs a good refactor
-    setEnemiesAsObstacles(grid, currentPlayerId) {
-        // set up obstacles for enemy players
-        const opposingPlayer = Player.getOpponentId(currentPlayerId);
-        const locations = grid.getAllLocations();
-        const units = [];
-
-        locations.forEach((location) => {
-            const tile = this.getTileView(location);
-            const unit = tile.getUnit();
-
-            if (unit && unit.getOwner() === opposingPlayer) {
-                grid.setObstacle(location);
-            }
-        });
-    }
-
-    getReachableLocations(location, unit) {
-        const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
-
-        this.setEnemiesAsObstacles(hexGrid, unit.getOwner());
-
-        return hexGrid.getReachableLocations(location, unit.getMovesLeft());
-    }
-
-    getPath = (firstLocation, secondLocation) => {
-        const owner = this.getUnit(firstLocation).getOwner();
-        const hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
-
-        this.setEnemiesAsObstacles(hexGrid, owner);
-        return hexGrid.getPath(firstLocation, secondLocation);
-    };
-
-    isUnitInMoveRange(unitLocation, targetLocation) {
-        const unit = this.getUnit(unitLocation);
-        const locations = this.getReachableLocations(unitLocation, unit);
-
-        return _.find(locations, (location) => {
-            return _.isEqual(targetLocation, location);
-        });
     }
 }
 

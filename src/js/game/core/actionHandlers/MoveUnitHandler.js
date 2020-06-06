@@ -1,4 +1,5 @@
 import GridView from 'js/game/core/views/GridView';
+import UnitMovementView from 'js/game/core/views/UnitMovementView';
 import PlayersView from 'js/game/core/views/PlayersView';
 import Player from 'js/game/core/models/Player';
 
@@ -11,7 +12,8 @@ class MoveUnitHandler {
     computeAction(action, state) {
         const gridView = new GridView(state);
         const playersView = new PlayersView(state);
-        const path = gridView.getPath(action.data.fromLocation, action.data.toLocation);
+        const unitMovementView = new UnitMovementView(state, action.data.fromLocation);
+        const path = unitMovementView.getPathTo(action.data.toLocation);
         const steps = [];
         let fromLocation = action.data.fromLocation;
 

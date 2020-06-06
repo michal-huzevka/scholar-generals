@@ -3,6 +3,8 @@ import React from 'react';
 import HexGrid from 'js/game/utils/hexGrid/HexGrid';
 import withGlobalContext from 'js/game/ui/withGlobalContext';
 import Tile from 'js/game/ui/components/Tile';
+import GridView from 'js/game/core/views/GridView';
+import UnitMovementView from 'js/game/core/views/UnitMovementView';
 
 class HexGridComponent extends React.Component {
     constructor(props, context) {
@@ -22,7 +24,7 @@ class HexGridComponent extends React.Component {
     }
 
     renderChildren() {
-        const gridView = this.props.gridView;
+        const gridView = new GridView(this.props.gameState);
 
         return gridView.getAllLocations().map((location) => {
             const isSelected = _.isEqual(location, this.state.selectedLocation);
@@ -43,20 +45,21 @@ class HexGridComponent extends React.Component {
     }
 
     handleTileSelect = (location) => {
-        const gridView = this.props.gridView;
+        const gridView = new GridView(this.props.gameState);
         const tile = gridView.getTileView(location);
         const unit = tile.getUnit();
         
         if (unit) {
+            const unitMovementView = new UnitMovementView(this.props.gameState, location);
+
             this.setState({
                 selectedLocation: location,
-                locationsInRange: gridView.getReachableLocations(location, unit)
+                locationsInRange: unitMovementView.getReachableLocations()
             });
-        } else {
-            if (
-                this.state.selectedLocation &&
-                gridView.isUnitInMoveRange(this.state.selectedLocation, location)
-            ) {
+        } else if (this.state.selectedLocation) {
+            const unitMovementView = new UnitMovementView(this.props.gameState, this.state.selectedLocation);
+
+            if (unitMovementView.isUnitInMoveRange(location)) {
                 // do a move
                 this.props.doAction({
                     type: 'MOVE_UNIT',
@@ -71,13 +74,19 @@ class HexGridComponent extends React.Component {
                 selectedLocation: null,
                 locationsInRange: []
             });
+        } else {
+            this.setState({
+                selectedLocation: null,
+                locationsInRange: []
+            });
+
         }
     }
 }
 
 export default withGlobalContext(HexGridComponent, (coreInterface) => {
     return {
-        gridView: coreInterface.getGridView(),
+        gameState: coreInterface.getActiveState(),
         doAction: coreInterface.doAction
     };
 });
