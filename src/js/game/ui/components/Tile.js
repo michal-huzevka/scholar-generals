@@ -22,6 +22,9 @@ class Tile extends React.Component {
         if (this.props.inRange) {
             className += ' in-range';
         }
+        if (this.props.isAttackable) {
+            className += ' attackable';
+        }
 
         return (
             <g

@@ -30,6 +30,10 @@
     fill: lightgreen;
 }
 
+.tile.attackable .hex {
+    fill: red;
+}
+
 .tile-unit-health {
     font-size: 2.5px;
     text-anchor: middle;
