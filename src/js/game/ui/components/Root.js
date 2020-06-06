@@ -6,7 +6,7 @@ import GlobalContextProvider from 'js/game/ui/components/GlobalContextProvider';
 class Root extends React.Component {
     render() {
         return (
-            <GlobalContextProvider game={this.props.game}>
+            <GlobalContextProvider coreInterface={this.props.coreInterface}>
                 <ActivePlayer />
                 <SvgContainer />
             </GlobalContextProvider>

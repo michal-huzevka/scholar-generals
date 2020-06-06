@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from 'js/game/ui/components/Root';
 
-class Main {
-    constructor(selector, game) {
+class UiMain {
+    constructor(selector, coreInterface) {
         this.selector = selector;
-        this.game = game;
+        this.coreInterface = coreInterface;
     }
 
     initialise() {
         const domContainer = document.querySelector(this.selector);
 
-        ReactDOM.render(<Root game={this.game} />, domContainer);
+        ReactDOM.render(<Root coreInterface={this.coreInterface} />, domContainer);
     }
 }
 
-export default Main;
+export default UiMain;

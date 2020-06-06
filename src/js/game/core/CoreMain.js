@@ -6,7 +6,7 @@ import ActionMaster from 'js/game/core/ActionMaster';
 import StepMaster from 'js/game/core/StepMaster';
 import GameHistory from 'js/game/core/GameHistory';
 
-class Game {
+class CoreMain {
     constructor() {
         this.gameState = initialGameState();
         this.eventListeners = {
@@ -48,8 +48,6 @@ class Game {
         this.gameState = state;
         this.gameHistory.addState(state);
         this.trigger('stepCounter:increase', state.get('stepCounter'));
-
-        document.gs = state;
     }
 
     doAction = (action) => {
@@ -73,4 +71,4 @@ class Game {
     }
 }
 
-export default Game;
+export default CoreMain;

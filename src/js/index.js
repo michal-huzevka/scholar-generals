@@ -1,8 +1,8 @@
-import App from 'js/game/App';
+import Game from 'js/game/Game';
 import 'styles/index.scss';
 
 window.onload = () => {
-    const app = new App('.hook');
+    const game = new Game('.hook');
 
-    app.start();
+    game.start();
 }

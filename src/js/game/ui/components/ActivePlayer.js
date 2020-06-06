@@ -20,9 +20,9 @@ class ActivePlayer extends React.Component {
     }
 }
 
-export default withGlobalContext(ActivePlayer, (game) => {
+export default withGlobalContext(ActivePlayer, (coreInterface) => {
     return {
-        player: new PlayersView(game.getHistory().getState()).getActivePlayer(),
-        endTurn: () => game.doAction({ type: 'END_TURN' })
+        player: new PlayersView(coreInterface.getHistory().getState()).getActivePlayer(),
+        endTurn: () => coreInterface.doAction({ type: 'END_TURN' })
     };
 });

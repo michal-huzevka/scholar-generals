@@ -41,8 +41,8 @@ class Tile extends React.Component {
     }
 }
 
-export default withGlobalContext(Tile, (game, ownProps) => {
+export default withGlobalContext(Tile, (coreInterface, ownProps) => {
     return {
-        tileView: game.getHistory().getGridView().getTileView(ownProps.location)
+        tileView: coreInterface.getHistory().getGridView().getTileView(ownProps.location)
     };
 });

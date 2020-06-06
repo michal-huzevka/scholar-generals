@@ -9,19 +9,19 @@ class GlobalContextProvider extends React.Component {
         super(props, context);
 
         this.state = {
-            stepCounter: this.props.game.getState().get('stepCounter'),
-            game: this.props.game
+            stepCounter: this.props.coreInterface.getState().get('stepCounter'),
+            coreInterface: this.props.coreInterface
         };
         this.activeDelay = 0;
     }
 
     componentDidMount() {
-        this.state.game.onEvent('stepCounter:increase', (stepCounter) => {
-            const game = this.state.game;
-            const lastStep = game.getState().get('lastStep');
+        this.state.coreInterface.onEvent('stepCounter:increase', (stepCounter) => {
+            const coreInterface = this.state.coreInterface;
+            const lastStep = coreInterface.getState().get('lastStep');
 
             setTimeout(() => {
-                game.getHistory().setStepCounter(stepCounter);
+                coreInterface.getHistory().setStepCounter(stepCounter);
                 this.setState({
                     stepCounter
                 });

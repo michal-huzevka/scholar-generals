@@ -1,15 +1,15 @@
 import GlobalContext from 'js/game/ui/GlobalContext';
 import React from 'react';
 
-function withGlobalContext(WrappedComponent, mapGameToProps) {
+function withGlobalContext(WrappedComponent, mapCoreInterfaceToProps) {
     return class extends React.Component {
         render() {
             return (
                 <GlobalContext.Consumer>
                     {(context) => {
-                        const gameProps = mapGameToProps(context.game, this.props);
+                        const coreInterfaceProps = mapCoreInterfaceToProps(context.coreInterface, this.props);
 
-                        return (<WrappedComponent {...gameProps} {...this.props} />);
+                        return (<WrappedComponent {...coreInterfaceProps} {...this.props} />);
                     }}
                 </GlobalContext.Consumer>
             );
