@@ -2,6 +2,7 @@
     "footman": {
         "moveSpeed": 8,
         "maxHealth": 50,
-        "damage": 10
+        "damage": 10,
+        "attacks": 3
     }
 }
