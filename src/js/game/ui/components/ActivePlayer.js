@@ -22,7 +22,7 @@ class ActivePlayer extends React.Component {
 
 export default withGlobalContext(ActivePlayer, (coreInterface) => {
     return {
-        player: new PlayersView(coreInterface.getHistory().getState()).getActivePlayer(),
+        player: new PlayersView(coreInterface.getActiveState()).getActivePlayer(),
         endTurn: () => coreInterface.doAction({ type: 'END_TURN' })
     };
 });

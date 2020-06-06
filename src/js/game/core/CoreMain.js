@@ -1,7 +1,6 @@
 import _ from 'underscore';
 import GameState from 'js/game/core/GameState';
 import initialGameState from 'js/game/core/initialGameState';
-import GridView from 'js/game/core/views/GridView';
 import ActionMaster from 'js/game/core/ActionMaster';
 import StepMaster from 'js/game/core/StepMaster';
 import GameHistory from 'js/game/core/GameHistory';
@@ -20,10 +19,6 @@ class CoreMain {
 
     getHistory() {
         return this.gameHistory;
-    }
-
-    getGridView() {
-        return new GridView(this.gameState);
     }
 
     onEvent(eventName, listener) {

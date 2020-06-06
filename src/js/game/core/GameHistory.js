@@ -1,5 +1,3 @@
-import GridView from 'js/game/core/views/GridView';
-
 class GameHistory {
     constructor(gameState) {
         this.states = [gameState];
@@ -13,10 +11,6 @@ class GameHistory {
 
     addState(state) {
         this.states.push(state);
-    }
-
-    getGridView() {
-        return new GridView(this.getState());
     }
 
     getState() {

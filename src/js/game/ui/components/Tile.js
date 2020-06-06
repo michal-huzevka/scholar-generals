@@ -43,6 +43,6 @@ class Tile extends React.Component {
 
 export default withGlobalContext(Tile, (coreInterface, ownProps) => {
     return {
-        tileView: coreInterface.getHistory().getGridView().getTileView(ownProps.location)
+        tileView: coreInterface.getGridView().getTileView(ownProps.location)
     };
 });

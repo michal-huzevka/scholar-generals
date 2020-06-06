@@ -29,6 +29,6 @@ class Unit extends React.Component {
 
 export default withGlobalContext(Unit, (coreInterface) => {
     return {
-        getPlayerById: new PlayersView(coreInterface.getHistory().getState()).getPlayerById
+        getPlayerById: new PlayersView(coreInterface.getActiveState()).getPlayerById
     };
 });

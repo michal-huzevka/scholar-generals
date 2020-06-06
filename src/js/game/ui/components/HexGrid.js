@@ -77,7 +77,7 @@ class HexGridComponent extends React.Component {
 
 export default withGlobalContext(HexGridComponent, (coreInterface) => {
     return {
-        gridView: coreInterface.getHistory().getGridView(),
+        gridView: coreInterface.getGridView(),
         doAction: coreInterface.doAction
     };
 });
