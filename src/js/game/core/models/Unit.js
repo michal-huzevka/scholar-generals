@@ -22,6 +22,10 @@ class Unit extends BaseModel {
         return this.stats.damagePerAttack;
     }
 
+    getAttackCount() {
+        return this.stats.attackCount;
+    }
+
     /* data getters */
     getHealth() {
         if (!_.isNumber(this.data.health)) {
@@ -52,9 +56,13 @@ class Unit extends BaseModel {
     }
 
     /* mutators */
-
     modifyHealth(points) {
-        const health = this.getHealth() + points;
+        let health = this.getHealth() + points;
+
+        // health cannot go below 0
+        if (health < 0) {
+            health = 0;
+        }
 
         return this.setField('health', health);
     }

@@ -27,7 +27,7 @@ class GlobalContextProvider extends React.Component {
                 });
             }, this.activeDelay);
 
-            if (lastStep.type === 'MOVE_ONE_SPACE') {
+            if (lastStep.type === 'MOVE_ONE_SPACE' || lastStep.type === 'ATTACK_UNIT') {
                 this.activeDelay += MOVE_DELAY;
             }
         });

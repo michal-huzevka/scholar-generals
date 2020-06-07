@@ -3,6 +3,6 @@
         "moveSpeed": 12,
         "maxHealth": 50,
         "damagePerAttack": 10,
-        "attacks": 3
+        "attackCount": 3
     }
 }

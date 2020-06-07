@@ -16,9 +16,13 @@ class MoveUnitHandler {
         const path = unitMovementView.getPathTo(action.data.toLocation);
         const steps = [];
         let fromLocation = action.data.fromLocation;
+        const unit = gridView.getUnit(fromLocation);
 
-        if (gridView.getUnit(fromLocation).getOwner() !== playersView.getActivePlayerId()) {
+        if (unit.getOwner() !== playersView.getActivePlayerId()) {
             // invalid
+            return [];
+        }
+        if (unit.getMovesLeft() === 0) {
             return [];
         }
 

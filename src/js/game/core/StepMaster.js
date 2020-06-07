@@ -1,6 +1,7 @@
 import MoveOneSpaceHandler from 'js/game/core/stepHandlers/MoveOneSpaceHandler';
 import EndTurnHandler from 'js/game/core/stepHandlers/EndTurnHandler';
 import AttackUnitHandler from 'js/game/core/stepHandlers/AttackUnitHandler';
+import KillUnitHandler from 'js/game/core/stepHandlers/KillUnitHandler';
 import ExhaustUnitHandler from 'js/game/core/stepHandlers/ExhaustUnitHandler';
 
 class StepMaster {
@@ -9,7 +10,8 @@ class StepMaster {
             new MoveOneSpaceHandler(),
             new EndTurnHandler(),
             new AttackUnitHandler(),
-            new ExhaustUnitHandler()
+            new ExhaustUnitHandler(),
+            new KillUnitHandler(),
         ];
     }
 
