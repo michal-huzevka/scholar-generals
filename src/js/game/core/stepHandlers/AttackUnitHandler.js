@@ -17,9 +17,8 @@ class AttackUnitHandler {
         state = state.setModel(attackedUnit);
 
         if (attackedUnit.getHealth() === 0) {
-            // kill the unit and stop other attacks
-            remainingSteps = _.clone(remainingSteps);
-            remainingSteps = _.reject(remainingSteps, step => step.type === 'ATTACK_UNIT');
+            // kill the unit
+            // this will get rid of other attacks
             remainingSteps.unshift({
                 type: 'KILL_UNIT',
                 data: {

@@ -32,6 +32,18 @@ class GameState {
 
         return new GameState(store);
     }
+
+    removeModel(model) {
+        let id = model.getId();
+        const type = model.getModelType();
+        const store = _.clone(this.store);
+
+        store.models = _.clone(store.models);
+        store.models[type] = _.clone(store.models[type]);
+        delete store.models[type][id];
+
+        return new GameState(store);
+    }
     
     getModel(type, id) {
         if (!id) {
