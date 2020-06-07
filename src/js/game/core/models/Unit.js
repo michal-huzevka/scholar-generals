@@ -9,6 +9,7 @@ class Unit extends BaseModel {
         this.stats = UNIT_TYPES[data.type];
     }
 
+    /* stats */
     getMoveSpeed() {
         return this.stats.moveSpeed;
     }
@@ -17,6 +18,11 @@ class Unit extends BaseModel {
         return this.stats.maxHealth;
     }
 
+    getDamagePerAttack() {
+        return this.stats.damagePerAttack;
+    }
+
+    /* data getters */
     getHealth() {
         if (!_.isNumber(this.data.health)) {
             // if health is undefined, use maxHealth
@@ -24,12 +30,6 @@ class Unit extends BaseModel {
         } else {
             return this.data.health;
         }
-    }
-
-    subtractHealth(points) {
-        const health = this.getHealth() - points;
-
-        return this.setField('health', health);
     }
 
     getMovesLeft() {
@@ -41,18 +41,40 @@ class Unit extends BaseModel {
         }
     }
 
+    getOwner() {
+        return this.data.owner;
+    }
+
+    canAttack() {
+        return _.isUndefined(this.data.canAttack) ?
+            true :
+            this.data.canAttack;
+    }
+
+    /* mutators */
+
+    modifyHealth(points) {
+        const health = this.getHealth() + points;
+
+        return this.setField('health', health);
+    }
+
     spendMoves(moves) {
         const movesLeft = this.getMovesLeft() - moves;
 
         return this.setField('movesLeft', movesLeft);
     }
 
-    getOwner() {
-        return this.data.owner;
+    exhaustUnit() {
+        return this
+            .setField('movesLeft', 0)
+            .setField('canAttack', false);
     }
 
     refresh() {
-        return this.setField('movesLeft', this.getMoveSpeed());
+        return this
+            .setField('movesLeft', this.getMoveSpeed())
+            .setField('canAttack', true);
     }
 }
 

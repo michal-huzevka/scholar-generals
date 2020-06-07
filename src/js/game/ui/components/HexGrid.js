@@ -67,8 +67,14 @@ class HexGridComponent extends React.Component {
                 _.find(attackableLocations, location => _.isEqual(location, selectedLocation)) &&
                 selectedUnit.getOwner() === this.props.activePlayerId
             ) {
-                // if the unit can be attacked, attack it
-                console.log('attacking');
+                // if the unit can be attacked, fight it
+                this.props.doAction({
+                    type: 'FIGHT_UNIT',
+                    data: {
+                        attackerLocation: selectedLocation,
+                        attackedLocation: location
+                    }
+                });
             } else {
                 // if not, select the location
                 const unitMovementView = new UnitMovementView(this.props.gameState, location);

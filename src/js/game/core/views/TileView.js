@@ -9,6 +9,12 @@ class TileView {
         }
     }
 
+    static buildFromLocation(gameState, location) {
+        const tileId = location.x + ',' + location.y;
+
+        return new TileView(gameState, tileId);
+    }
+
     getUnit() {
         return this.unit;
     }

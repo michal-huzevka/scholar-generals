@@ -2,7 +2,7 @@
 import GlobalContext from 'js/game/ui/GlobalContext';
 import React from 'react';
 
-const MOVE_DELAY = 200;
+const MOVE_DELAY = 100;
 
 class GlobalContextProvider extends React.Component {
     constructor(props, context) {
