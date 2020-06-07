@@ -9,7 +9,8 @@ class CoreMain {
     constructor() {
         this.gameState = initialGameState();
         this.eventListeners = {
-            'stepCounter:increase': []
+            'stepCounter:increase': [],
+            'action:complete': []
         };
         this.actionMaster = new ActionMaster();
         this.stepMaster = new StepMaster();
@@ -59,6 +60,7 @@ class CoreMain {
             this.setState(result.state);
         }
         this.lastAction = action;
+        this.trigger('action:complete');
     }
 
     getLastAction = () => {
