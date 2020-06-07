@@ -3,6 +3,7 @@
         "moveSpeed": 12,
         "maxHealth": 50,
         "damagePerAttack": 10,
-        "attackCount": 3
+        "attackCount": 3,
+        "image": "footman.gif"
     }
 }

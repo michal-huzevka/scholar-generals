@@ -26,6 +26,10 @@ class Unit extends BaseModel {
         return this.stats.attackCount;
     }
 
+    getImage() {
+        return this.stats.image;
+    }
+
     /* data getters */
     getHealth() {
         if (!_.isNumber(this.data.health)) {
