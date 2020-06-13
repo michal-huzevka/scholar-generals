@@ -18,8 +18,8 @@ class UnitAttackView extends BaseView {
             this.gameState,
             { location: this.unitLocation }
         );
-        const unit = tileView.getUnit();
-        this.opposingPlayer = Player.getOpponentId(unit.getOwner());
+        this.unit = tileView.getUnit();
+        this.opposingPlayer = Player.getOpponentId(this.unit.getOwner());
 
         this.hexGrid.getAllLocations().forEach((location) => {
             const id = location.x + ',' + location.y;
@@ -30,7 +30,7 @@ class UnitAttackView extends BaseView {
     }
 
     getAttackableLocations = () => {
-        const locations = this.hexGrid.getReachableLocations(this.unitLocation, 1);
+        const locations = this.hexGrid.getReachableLocations(this.unitLocation, this.unit.getRange());
 
         return locations.filter((location) => {
             const unit = this.hexGrid.getLocationData(location).getUnit();

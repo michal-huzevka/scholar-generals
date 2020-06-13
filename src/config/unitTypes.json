@@ -19,5 +19,14 @@
         "damagePerAttack": 10,
         "attackCount": 2,
         "image": "scholar.png"
+    },
+    "skirmisher": {
+        "moveSpeed": 3,
+        "maxHealth": 40,
+        "damagePerAttack": 8,
+        "attackCount": 2,
+        "range": 3,
+        "traits": ["ranged", "skirmisher"],
+        "image": "skirmisher.png"
     }
 }

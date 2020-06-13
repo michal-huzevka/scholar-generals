@@ -60,15 +60,18 @@ class HexGridComponent extends React.Component {
         const tile = gridView.getTileView(location);
         const unit = tile.getUnit();
         const { selectedLocation } = this.state;
+
+        const selectedUnit = selectedLocation && gridView.getTileView(selectedLocation).getUnit();
         
         if (unit) {
-            const unitAttackView = this.props.getUnitAttackView({ unitLocation: location });
-            const attackableLocations = unitAttackView.getAttackableLocations();
+            // this needs a refactor
+            let unitAttackView = selectedLocation && this.props.getUnitAttackView({ unitLocation: selectedLocation });
+            const attackableLocations = selectedLocation && unitAttackView.getAttackableLocations();
             const selectedUnit = selectedLocation && gridView.getUnit(selectedLocation);
 
             if (
                 selectedLocation &&
-                _.find(attackableLocations, location => _.isEqual(location, selectedLocation)) &&
+                _.find(attackableLocations, attackableLoc => _.isEqual(location, attackableLoc)) &&
                 selectedUnit.getOwner() === this.props.activePlayerId
             ) {
                 // if the unit can be attacked, fight it
@@ -82,6 +85,7 @@ class HexGridComponent extends React.Component {
             } else {
                 // if not, select the location
                 const unitMovementView = this.props.getUnitMovementView({ unitLocation: location });
+                let unitAttackView = this.props.getUnitAttackView({ unitLocation: location });
 
                 this.setState({
                     selectedLocation: location,
@@ -89,7 +93,7 @@ class HexGridComponent extends React.Component {
                     attackableLocations: unitAttackView.getAttackableLocations()
                 });
             }
-        } else if (selectedLocation) {
+        } else if (selectedLocation && selectedUnit) {
             const unitMovementView = this.props.getUnitMovementView({ unitLocation: selectedLocation });
 
             if (unitMovementView.isUnitInMoveRange(location)) {

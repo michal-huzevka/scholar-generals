@@ -1,11 +1,11 @@
 {
-    "width": 14,
+    "width": 18,
     "height": 14,
     "units": [
         {
             "location": {
-                "x": 3,
-                "y": 1
+                "x": 5,
+                "y": 0
             },
             "type": "scholar",
             "owner": "1"
@@ -15,13 +15,21 @@
                 "x": 3,
                 "y": 0
             },
+            "type": "skirmisher",
+            "owner": "1"
+        },
+        {
+            "location": {
+                "x": 3,
+                "y": 1
+            },
             "type": "footman",
             "owner": "1"
         },
         {
             "location": {
                 "x": 4,
-                "y": 0
+                "y": 1
             },
             "type": "footman",
             "owner": "1"
@@ -29,7 +37,7 @@
         {
             "location": {
                 "x": 5,
-                "y": 0
+                "y": 1
             },
             "type": "footman",
             "owner": "1"
@@ -37,7 +45,15 @@
         {
             "location": {
                 "x": 6,
-                "y": 0
+                "y": 1
+            },
+            "type": "footman",
+            "owner": "1"
+        },
+        {
+            "location": {
+                "x": 7,
+                "y": 1
             },
             "type": "horseman",
             "owner": "1"
@@ -48,6 +64,14 @@
                 "y": 10
             },
             "type": "scholar",
+            "owner": "2"
+        },
+        {
+            "location": {
+                "x": 4,
+                "y": 10
+            },
+            "type": "skirmisher",
             "owner": "2"
         },
         {

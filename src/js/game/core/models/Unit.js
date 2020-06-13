@@ -30,6 +30,18 @@ class Unit extends BaseModel {
         return this.stats.image;
     }
 
+    isRanged() {
+        return this.hasTrait('ranged');
+    }
+
+    hasTrait(trait) {
+        return this.stats.traits && _.contains(this.stats.traits, trait);
+    }
+
+    getRange() {
+        return this.stats.range || 1;
+    }
+
     /* data getters */
     getHealth() {
         if (!_.isNumber(this.data.health)) {
@@ -78,9 +90,11 @@ class Unit extends BaseModel {
     }
 
     exhaustUnit() {
-        return this
-            .setField('movesLeft', 0)
-            .setField('canAttack', false);
+        let unit = this.setField('canAttack', false);
+        if (!this.hasTrait('skirmisher')) {
+            unit = unit.setField('movesLeft', 0)
+        }
+        return unit;
     }
 
     refresh() {

@@ -26,6 +26,12 @@ class FightUnitHandler extends BaseActionHandler {
         let done = false;
         let attackerAttacksLeft = attackingUnit.getAttackCount();
         let defenderAttacksLeft = defendingUnit.getAttackCount();
+
+        if (defendingUnit.isRanged() || attackingUnit.isRanged()) {
+            // ranged units cant defend
+            // units targetted by ranged attacks also can' defend
+            defenderAttacksLeft = 0;
+        }
         // alternate attacks
         while (!done) {
             if (attackerAttacksLeft > 0) {

@@ -40,7 +40,7 @@ class SvgContainer extends React.Component {
                         <image xlinkHref={GrassTile} x="0" y="0" width="5" height="5" />
                     </pattern>
                 </defs>
-                    <rect style={style} height="180" width="153"></rect>
+                    <rect style={style} height="180" width="200"></rect>
                     <HexGrid />
                 </svg>
             </div>
