@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import React from 'react';
 import HexGrid from 'js/game/utils/hexGrid/HexGrid';
 import withGlobalContext from 'js/game/ui/withGlobalContext';
@@ -6,23 +7,38 @@ import constants from 'js/game/ui/constants';
 
 const { HEXAGON_SIZE } = constants;
 
-class Tile extends React.Component {    
+class Tile extends React.Component {
+
+    shouldComponentUpdate(nextProps) {
+        if (
+            !_.isEqual(this.props.location, nextProps.location) ||
+            this.props.handleTileSelect !== nextProps.handleTileSelect ||
+            this.props.isSelected !== nextProps.isSelected ||
+            this.props.inRange !== nextProps.inRange ||
+            this.props.isAttackable !== nextProps.isAttackable ||
+            this.props.unit !== nextProps.unit
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     render() {
-        const { location, tileView, handleTileSelect } = this.props;
+        const { location, unit, handleTileSelect, isSelected, inRange, isAttackable } = this.props;
         const xOffset = 8;
         const yOffset = 8;
         const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
-        const unit = tileView.getUnit();
         const transformStr = `translate(${point.x + xOffset}, ${point.y + yOffset})`;
         let className = 'tile';
 
-        if (this.props.isSelected) {
+        if (isSelected) {
             className += ' selected';
         }
-        if (this.props.inRange) {
+        if (inRange) {
             className += ' in-range';
         }
-        if (this.props.isAttackable) {
+        if (isAttackable) {
             className += ' attackable';
         }
 
@@ -46,6 +62,6 @@ class Tile extends React.Component {
 
 export default withGlobalContext(Tile, (coreInterface, ownProps) => {
     return {
-        tileView: coreInterface.getGridView().getTileView(ownProps.location)
+        unit: coreInterface.getGridView().getTileView(ownProps.location).getUnit()
     };
 });

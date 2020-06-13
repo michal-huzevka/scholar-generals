@@ -22,6 +22,13 @@
         },
         "type": "footman",
         "owner": "1"
+    }, {
+        "location": {
+            "x": 6,
+            "y": 0
+        },
+        "type": "horseman",
+        "owner": "1"
     },
     {
         "location": {
@@ -43,6 +50,13 @@
             "y": 11
         },
         "type": "footman",
+        "owner": "2"
+    }, {
+        "location": {
+            "x": 6,
+            "y": 11
+        },
+        "type": "horseman",
         "owner": "2"
     }]
 }

@@ -6,6 +6,16 @@ import PlayersView from 'js/game/core/views/PlayersView';
 
 // https://opengameart.org/content/slates-32x32px-orthogonal-tileset-by-ivan-voirol
 
+// https://opengameart.org/content/lpc-character-collection
+// https://opengameart.org/content/lpc-collection
+
+// http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator
+
+// https://opengameart.org/content/lpc-white-beard
+
+// give credit to https://github.com/wesnoth/wesnoth/blob/master/data/core/images/units/human-loyalists/horseman/horseman.png
+
+
 class Unit extends React.Component {    
     render() {
         const unit = this.props.unit;
