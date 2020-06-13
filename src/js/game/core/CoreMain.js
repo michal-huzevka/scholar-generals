@@ -4,6 +4,7 @@ import initialGameState from 'js/game/core/initialGameState';
 import ActionMaster from 'js/game/core/ActionMaster';
 import StepMaster from 'js/game/core/StepMaster';
 import GameHistory from 'js/game/core/GameHistory';
+import ViewManager from 'js/game/core/ViewManager';
 
 class CoreMain {
     constructor() {
@@ -13,8 +14,9 @@ class CoreMain {
             'action:complete': []
         };
         this.actionMaster = new ActionMaster();
-        this.stepMaster = new StepMaster();
         this.gameHistory = new GameHistory(this.gameState);
+        this.viewManager = new ViewManager();
+        this.stepMaster = new StepMaster(this.viewManager);
         this.lastAction = null;
     }
 
@@ -65,6 +67,14 @@ class CoreMain {
 
     getLastAction = () => {
         return this.lastAction;
+    }
+
+    getView = (viewName, stepCounter, viewOptions) => {
+        const generalOptions = {
+            gameState: this.gameHistory.getStateAt(stepCounter),
+            viewManager: this.viewManager
+        };
+        return this.viewManager.getView(viewName, generalOptions, viewOptions);
     }
 }
 

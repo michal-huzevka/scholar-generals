@@ -1,0 +1,66 @@
+import GridView from 'js/game/core/views/GridView';
+
+// number of steps before an old cache is cleared
+const CACHE_DURATION = 200;
+class ViewManager {
+    constructor() {
+        this.cachedViews = {};
+    }
+
+    getView(viewName, generalOptions, viewOptions) {
+        const stepCounter = generalOptions.gameState.get('stepCounter');
+        const cacheKey = this.getCacheKey(viewOptions);
+        const cachedView = this.cachedViews[stepCounter] &&
+            this.cachedViews[stepCounter][viewName] &&
+            this.cachedViews[stepCounter][viewName][cacheKey];
+
+        if (cachedView) {
+            return cachedView;
+        } else {
+            // build the view
+            const View = this.getClass(viewName);
+            const view = new View(generalOptions, viewOptions);
+
+            this.setCachedView(view, viewName, stepCounter, cacheKey);
+            // lazy way to delete old cached views
+            this.deleteOldCachedViews(stepCounter);
+            return view;
+        }
+    }
+
+    setCachedView(view, viewName, stepCounter, cacheKey) {
+        if (!this.cachedViews[stepCounter]) {
+            this.cachedViews[stepCounter] = {};
+        }
+
+        if (!this.cachedViews[stepCounter][viewName]) {
+            this.cachedViews[stepCounter][viewName] = {}; 
+        }
+
+        this.cachedViews[stepCounter][viewName][cacheKey] = view;
+    }
+
+    deleteOldCachedViews(stepCounter) {
+        if (stepCounter >= CACHE_DURATION) {
+            const deleteCounter = stepCounter - CACHE_DURATION;
+
+            delete this.cachedViews[deleteCounter.toString()];
+        }
+    }
+
+    getCacheKey(viewOptions) {
+        if (!viewOptions) {
+            viewOptions = {};
+        }
+
+        return JSON.stringify(viewOptions);
+    }
+
+    getClass(viewName) {
+        if (viewName === 'GridView') {
+            return GridView;
+        }
+    }
+}
+
+export default ViewManager;

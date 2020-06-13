@@ -25,8 +25,6 @@ class AttackUnitHandler {
                     unitLocation: attackedLocation
                 }
             });
-
-            console.log(remainingSteps);
         }
 
         return {

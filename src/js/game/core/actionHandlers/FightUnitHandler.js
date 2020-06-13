@@ -54,7 +54,6 @@ class FightUnitHandler {
             }
         });
 
-        console.log(steps);
         return steps;
     }
 }

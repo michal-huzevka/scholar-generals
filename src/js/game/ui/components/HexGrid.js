@@ -27,7 +27,7 @@ class HexGridComponent extends React.Component {
     }
 
     renderChildren() {
-        const gridView = new GridView(this.props.gameState);
+        const gridView = this.props.gridView;
 
         return gridView.getAllLocations().map((location) => {
             const isSelected = _.isEqual(location, this.state.selectedLocation);
@@ -52,7 +52,7 @@ class HexGridComponent extends React.Component {
     }
 
     handleTileSelect = (location) => {
-        const gridView = new GridView(this.props.gameState);
+        const gridView = this.props.gridView;
         const tile = gridView.getTileView(location);
         const unit = tile.getUnit();
         const { selectedLocation } = this.state;
@@ -118,6 +118,7 @@ class HexGridComponent extends React.Component {
 export default withGlobalContext(HexGridComponent, (coreInterface) => {
     return {
         gameState: coreInterface.getActiveState(),
+        gridView: coreInterface.getGridView(),
         activePlayerId: new PlayersView(coreInterface.getActiveState()).getActivePlayerId(),
         doAction: coreInterface.doAction
     };

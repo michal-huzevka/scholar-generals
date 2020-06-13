@@ -16,7 +16,7 @@ import PlayersView from 'js/game/core/views/PlayersView';
 // give credit to https://github.com/wesnoth/wesnoth/blob/master/data/core/images/units/human-loyalists/horseman/horseman.png
 
 
-class Unit extends React.Component {    
+class Unit extends React.Component {
     render() {
         const unit = this.props.unit;
         const ownerId = unit.getOwner();

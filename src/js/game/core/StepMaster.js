@@ -5,13 +5,17 @@ import KillUnitHandler from 'js/game/core/stepHandlers/KillUnitHandler';
 import ExhaustUnitHandler from 'js/game/core/stepHandlers/ExhaustUnitHandler';
 
 class StepMaster {
-    constructor() {
+    constructor(viewManager) {
+        const options = {
+            viewManager
+        };
+
         this.handlers = [
-            new MoveOneSpaceHandler(),
-            new EndTurnHandler(),
-            new AttackUnitHandler(),
-            new ExhaustUnitHandler(),
-            new KillUnitHandler(),
+            new MoveOneSpaceHandler(options),
+            new EndTurnHandler(options),
+            new AttackUnitHandler(options),
+            new ExhaustUnitHandler(options),
+            new KillUnitHandler(options)
         ];
     }
 

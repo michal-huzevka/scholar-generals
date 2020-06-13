@@ -3,7 +3,8 @@ import Grid from 'js/game/core/models/Grid';
 import HexGrid from 'js/game/utils/hexGrid/HexGrid';
 
 class GridView {
-    constructor(gameState) {
+    constructor(generalOptions) {
+        const gameState = generalOptions.gameState;
         this.grid = gameState.getModel(Grid.staticGetModelType());
         this.hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 

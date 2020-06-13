@@ -1,7 +1,8 @@
 import GridView from 'js/game/core/views/GridView';
 import Player from 'js/game/core/models/Player';
+import BaseStepHandler from 'js/game/core/stepHandlers/BaseStepHandler';
 
-class MoveOneSpaceHandler {
+class MoveOneSpaceHandler extends BaseStepHandler {
     getStepType() {
         return 'MOVE_ONE_SPACE';
     }
@@ -9,7 +10,10 @@ class MoveOneSpaceHandler {
     computeStep(step, state, remainingSteps) {
         // Assume the move is always one space
         const { fromLocation, toLocation } = step.data;
-        const gridView = new GridView(state);
+        const gridView = this._getViewManager().getView(
+            'GridView',
+            { gameState: state }
+        );
         let fromTile = gridView.getTile(fromLocation);
         let toTile = gridView.getTile(toLocation);
         let unit = gridView.getUnit(fromLocation);

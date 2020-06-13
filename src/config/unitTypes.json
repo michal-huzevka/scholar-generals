@@ -7,7 +7,7 @@
         "image": "footman.gif"
     },
     "horseman": {
-        "moveSpeed": 13,
+        "moveSpeed": 16,
         "maxHealth": 40,
         "damagePerAttack": 20,
         "attackCount": 2,

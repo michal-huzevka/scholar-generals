@@ -16,6 +16,10 @@ class GameHistory {
     getState() {
         return this.states[this.currentStepCounter];
     }
+
+    getStateAt(stepCounter) {
+        return this.states[stepCounter];
+    }
 }
 
 export default GameHistory;

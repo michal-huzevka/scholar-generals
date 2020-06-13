@@ -10,7 +10,7 @@ class MoveUnitHandler {
     }
 
     computeAction(action, state) {
-        const gridView = new GridView(state);
+        const gridView = new GridView({ gameState: state });
         const playersView = new PlayersView(state);
         const unitMovementView = new UnitMovementView(state, action.data.fromLocation);
         const path = unitMovementView.getPathTo(action.data.toLocation);
