@@ -1,62 +1,83 @@
 {
     "width": 14,
     "height": 14,
-    "units": [{
-        "location": {
-            "x": 3,
-            "y": 0
+    "units": [
+        {
+            "location": {
+                "x": 3,
+                "y": 1
+            },
+            "type": "scholar",
+            "owner": "1"
         },
-        "type": "footman",
-        "owner": "1"
-    }, {
-        "location": {
-            "x": 4,
-            "y": 0
+        {
+            "location": {
+                "x": 3,
+                "y": 0
+            },
+            "type": "footman",
+            "owner": "1"
         },
-        "type": "footman",
-        "owner": "1"
-    }, {
-        "location": {
-            "x": 5,
-            "y": 0
+        {
+            "location": {
+                "x": 4,
+                "y": 0
+            },
+            "type": "footman",
+            "owner": "1"
         },
-        "type": "footman",
-        "owner": "1"
-    }, {
-        "location": {
-            "x": 6,
-            "y": 0
+        {
+            "location": {
+                "x": 5,
+                "y": 0
+            },
+            "type": "footman",
+            "owner": "1"
         },
-        "type": "horseman",
-        "owner": "1"
-    },
-    {
-        "location": {
-            "x": 3,
-            "y": 11
+        {
+            "location": {
+                "x": 6,
+                "y": 0
+            },
+            "type": "horseman",
+            "owner": "1"
         },
-        "type": "footman",
-        "owner": "2"
-    }, {
-        "location": {
-            "x": 4,
-            "y": 11
+        {
+            "location": {
+                "x": 3,
+                "y": 10
+            },
+            "type": "scholar",
+            "owner": "2"
         },
-        "type": "footman",
-        "owner": "2"
-    }, {
-        "location": {
-            "x": 5,
-            "y": 11
-        },
-        "type": "footman",
-        "owner": "2"
-    }, {
-        "location": {
-            "x": 6,
-            "y": 11
-        },
-        "type": "horseman",
-        "owner": "2"
-    }]
+        {
+            "location": {
+                "x": 3,
+                "y": 11
+            },
+            "type": "footman",
+            "owner": "2"
+        }, {
+            "location": {
+                "x": 4,
+                "y": 11
+            },
+            "type": "footman",
+            "owner": "2"
+        }, {
+            "location": {
+                "x": 5,
+                "y": 11
+            },
+            "type": "footman",
+            "owner": "2"
+        }, {
+            "location": {
+                "x": 6,
+                "y": 11
+            },
+            "type": "horseman",
+            "owner": "2"
+        }
+    ]
 }

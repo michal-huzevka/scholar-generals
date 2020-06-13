@@ -3,7 +3,7 @@ import GlobalContext from 'js/game/ui/GlobalContext';
 import React from 'react';
 import { startTimer, stopTimer } from 'js/game/utils/driftlessTimer';
 
-const MOVE_DELAY = 100;
+const MOVE_DELAY = 200;
 
 class GlobalContextProvider extends React.Component {
     constructor(props, context) {

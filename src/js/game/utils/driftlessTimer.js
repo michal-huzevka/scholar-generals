@@ -1,10 +1,12 @@
 let isStopped;
-let start = new Date().getTime();
-let time = 0;
+let start;
+let time;
 
 // LIMITATION: can only be used in one place at a time
 export const startTimer = (callback, interval) => {
     isStopped = false;
+    start = new Date().getTime();
+    time = 0;
     const instance = () => {
         if (isStopped) {
             return;
