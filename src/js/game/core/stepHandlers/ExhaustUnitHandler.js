@@ -8,7 +8,10 @@ class ExhaustUnitHandler extends BaseStepHandler {
 
     computeStep(step, state, remainingSteps) {
         const { unitLocation } = step.data;
-        const unit = TileView.buildFromLocation(state, unitLocation).getUnit();
+        const unit = this
+            .viewManager
+            .getView('TileView', state, { location: unitLocation })
+            .getUnit();
 
         state = state.setModel(unit.exhaustUnit());
 

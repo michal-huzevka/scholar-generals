@@ -62,7 +62,7 @@ class HexGridComponent extends React.Component {
         const { selectedLocation } = this.state;
         
         if (unit) {
-            const unitAttackView = new UnitAttackView(this.props.gameState, location);
+            const unitAttackView = this.props.getUnitAttackView({ unitLocation: location });
             const attackableLocations = unitAttackView.getAttackableLocations();
             const selectedUnit = selectedLocation && gridView.getUnit(selectedLocation);
 
@@ -81,7 +81,7 @@ class HexGridComponent extends React.Component {
                 });
             } else {
                 // if not, select the location
-                const unitMovementView = new UnitMovementView(this.props.gameState, location);
+                const unitMovementView = this.props.getUnitMovementView({ unitLocation: location });
 
                 this.setState({
                     selectedLocation: location,
@@ -90,7 +90,7 @@ class HexGridComponent extends React.Component {
                 });
             }
         } else if (selectedLocation) {
-            const unitMovementView = new UnitMovementView(this.props.gameState, selectedLocation);
+            const unitMovementView = this.props.getUnitMovementView({ unitLocation: selectedLocation });
 
             if (unitMovementView.isUnitInMoveRange(location)) {
                 // do a move
@@ -123,7 +123,9 @@ export default withGlobalContext(HexGridComponent, (coreInterface) => {
     return {
         gameState: coreInterface.getActiveState(),
         gridView: coreInterface.getGridView(),
+        getUnitAttackView: coreInterface.getUnitAttackView,
         activePlayerId: coreInterface.getPlayersView().getActivePlayerId(),
-        doAction: coreInterface.doAction
+        doAction: coreInterface.doAction,
+        getUnitMovementView: coreInterface.getUnitMovementView
     };
 });

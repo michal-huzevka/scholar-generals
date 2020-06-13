@@ -1,6 +1,4 @@
 
-import GridView from 'js/game/core/views/GridView';
-
 // exposes methods for the ui to call
 const createCoreInterface = (coreMain) => {
     const EXPOSED_METHODS = [
@@ -28,6 +26,14 @@ const createCoreInterface = (coreMain) => {
 
     coreInterface.getPlayersView = () => {
         return coreMain.getHistory().getView('PlayersView');
+    }
+
+    coreInterface.getUnitAttackView = (viewOptions) => {
+        return coreMain.getHistory().getView('UnitAttackView', viewOptions);
+    }
+
+    coreInterface.getUnitMovementView = (viewOptions) => {
+        return coreMain.getHistory().getView('UnitMovementView', viewOptions);
     }
 
     return coreInterface;

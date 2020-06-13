@@ -9,8 +9,14 @@ class FightUnitHandler extends BaseActionHandler {
     computeAction(action, state) {
         // if unit has already attacked, return early
         const { attackerLocation, attackedLocation } = action.data;
-        const attackingUnit = TileView.buildFromLocation(state, attackerLocation).getUnit();
-        const defendingUnit = TileView.buildFromLocation(state, attackedLocation).getUnit();
+        const attackingUnit = this
+            .viewManager
+            .getView('TileView', state, { location: attackerLocation })
+            .getUnit();
+        const defendingUnit = this
+            .viewManager
+            .getView('TileView', state, { location: attackedLocation })
+            .getUnit();
 
         if (!attackingUnit.canAttack()) {
             return [];

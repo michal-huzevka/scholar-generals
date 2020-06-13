@@ -12,7 +12,7 @@ class GridView extends BaseView {
 
         this.hexGrid.getAllLocations().forEach((location) => {
             const id = location.x + ',' + location.y;
-            const tile = new TileView(this.gameState, id);
+            const tile = this.viewManager.getView('TileView', this.gameState, { tileId: id });
 
             this.hexGrid.setLocationData(location, tile);
         });

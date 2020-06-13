@@ -9,8 +9,14 @@ class AttackUnitHandler extends BaseStepHandler {
 
     computeStep(step, state, remainingSteps) {
         const { attackerLocation, attackedLocation } = step.data;
-        const attackingUnit = TileView.buildFromLocation(state, attackerLocation).getUnit();
-        let attackedUnit = TileView.buildFromLocation(state, attackedLocation).getUnit();
+        const attackingUnit = this
+            .viewManager
+            .getView('TileView', state, { location: attackerLocation })
+            .getUnit();
+        let attackedUnit = this
+            .viewManager
+            .getView('TileView', state, { location: attackedLocation })
+            .getUnit();
         const dmg = attackingUnit.getDamagePerAttack();
 
 

@@ -9,7 +9,9 @@ class KillUnitHandler extends BaseStepHandler {
 
     computeStep(step, state, remainingSteps) {
         const { unitLocation } = step.data;
-        let tileView = TileView.buildFromLocation(state, unitLocation);
+        const tileView = this
+            .viewManager
+            .getView('TileView', state, { location: unitLocation })
 
         state = state
             .removeModel(tileView.getUnit())
