@@ -10,8 +10,8 @@ class MoveUnitHandler extends BaseActionHandler {
     }
 
     computeAction(action, state) {
-        const gridView = this._getViewManager().getView('GridView', state);
-        const playersView = new PlayersView(state);
+        const gridView = this.viewManager.getView('GridView', state);
+        const playersView = this.viewManager.getView('PlayersView', state);
         const unitMovementView = new UnitMovementView(state, action.data.fromLocation);
         const path = unitMovementView.getPathTo(action.data.toLocation);
         const steps = [];

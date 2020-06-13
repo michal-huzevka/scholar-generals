@@ -1,10 +1,20 @@
 import _ from 'underscore';
 import GridView from 'js/game/core/views/GridView';
+import GlobalView from 'js/game/core/views/GlobalView';
+import PlayersView from 'js/game/core/views/PlayersView';
+import TileView from 'js/game/core/views/TileView';
+import UnitAttackView from 'js/game/core/views/UnitAttackView';
+import UnitMovementView from 'js/game/core/views/UnitMovementView';
 
 // number of steps before an old cache is cleared
 const CACHE_DURATION = 200;
 const VIEWS = [
-    GridView
+    GridView,
+    GlobalView,
+    PlayersView,
+    TileView,
+    UnitAttackView,
+    UnitMovementView
 ];
 
 class ViewManager {

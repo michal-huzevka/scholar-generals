@@ -123,7 +123,7 @@ export default withGlobalContext(HexGridComponent, (coreInterface) => {
     return {
         gameState: coreInterface.getActiveState(),
         gridView: coreInterface.getGridView(),
-        activePlayerId: new PlayersView(coreInterface.getActiveState()).getActivePlayerId(),
+        activePlayerId: coreInterface.getPlayersView().getActivePlayerId(),
         doAction: coreInterface.doAction
     };
 });

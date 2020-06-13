@@ -1,10 +1,6 @@
 class BaseActionHandler {
     constructor(options) {
-        this.options = options || {};
-    }
-
-    _getViewManager() {
-        return this.options.viewManager;
+        this.viewManager = options.viewManager;
     }
 }
 

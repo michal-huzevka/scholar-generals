@@ -10,10 +10,7 @@ class MoveOneSpaceHandler extends BaseStepHandler {
     computeStep(step, state, remainingSteps) {
         // Assume the move is always one space
         const { fromLocation, toLocation } = step.data;
-        const gridView = this._getViewManager().getView(
-            'GridView',
-            state
-        );
+        const gridView = this.viewManager.getView('GridView', state);
         let fromTile = gridView.getTile(fromLocation);
         let toTile = gridView.getTile(toLocation);
         let unit = gridView.getUnit(fromLocation);

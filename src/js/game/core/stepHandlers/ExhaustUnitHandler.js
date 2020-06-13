@@ -1,6 +1,7 @@
 import TileView from 'js/game/core/views/TileView';
+import BaseStepHandler from 'js/game/core/stepHandlers/BaseStepHandler';
 
-class ExhaustUnitHandler {
+class ExhaustUnitHandler extends BaseStepHandler {
     getStepType() {
         return 'EXHAUST_UNIT';
     }

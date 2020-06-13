@@ -1,7 +1,8 @@
 import _ from 'underscore';
 import TileView from 'js/game/core/views/TileView';
+import BaseStepHandler from 'js/game/core/stepHandlers/BaseStepHandler';
 
-class KillUnitHandler {
+class KillUnitHandler extends BaseStepHandler {
     getStepType() {
         return 'KILL_UNIT';
     }

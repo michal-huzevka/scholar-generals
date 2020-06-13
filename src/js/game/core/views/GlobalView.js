@@ -6,8 +6,8 @@ class GlobalView extends BaseView {
     constructor(generalOptions) {
         super(generalOptions);
 
-        this.gridView = new GridView(generalOptions);
-        this.playersView = new PlayersView(this.gameState);
+        this.gridView = this.viewManager.getView('GridView', this.gameState);
+        this.playersView = this.viewManager.getView('PlayersView', this.gameState);
     }
 
     getAllUnitsForActivePlayer() {

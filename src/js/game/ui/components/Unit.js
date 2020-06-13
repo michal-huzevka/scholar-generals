@@ -38,6 +38,6 @@ class Unit extends React.Component {
 
 export default withGlobalContext(Unit, (coreInterface) => {
     return {
-        getPlayerById: new PlayersView(coreInterface.getActiveState()).getPlayerById
+        getPlayerById: coreInterface.getPlayersView().getPlayerById
     };
 });

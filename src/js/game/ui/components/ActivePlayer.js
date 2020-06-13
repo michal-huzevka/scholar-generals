@@ -1,6 +1,5 @@
 import React from 'react';
 import withGlobalContext from 'js/game/ui/withGlobalContext';
-import PlayersView from 'js/game/core/views/PlayersView';
 
 class ActivePlayer extends React.Component {
     render() {
@@ -22,7 +21,7 @@ class ActivePlayer extends React.Component {
 
 export default withGlobalContext(ActivePlayer, (coreInterface) => {
     return {
-        player: new PlayersView(coreInterface.getActiveState()).getActivePlayer(),
+        player: coreInterface.getPlayersView().getActivePlayer(),
         endTurn: () => coreInterface.doAction({ type: 'END_TURN' })
     };
 });

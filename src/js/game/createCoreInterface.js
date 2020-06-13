@@ -26,6 +26,10 @@ const createCoreInterface = (coreMain) => {
         return coreMain.getHistory().getView('GridView');
     }
 
+    coreInterface.getPlayersView = () => {
+        return coreMain.getHistory().getView('PlayersView');
+    }
+
     return coreInterface;
 }
 
