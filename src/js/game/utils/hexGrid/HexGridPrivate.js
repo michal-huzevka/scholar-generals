@@ -49,6 +49,12 @@ class HexGridPrivate {
             const cubes = fringes[i-1];
 
             cubes.forEach((cube) => {
+                if (this.isTerminal(cube) && i > 1) {
+                    // Zone of control.
+                    // If its a terminal cube, we cannot proceed further.
+                    // if the unit starts in a terminal cube however, it can still get out
+                    return;
+                }
                 for (let dir = 0; dir<6; dir++) {
                     const neighbor = cube.getNeighbor(dir);
                     const wasVisited = visited.has(neighbor.toString());
@@ -93,6 +99,12 @@ class HexGridPrivate {
             const cubes = fringes[i-1];
 
             cubes.forEach((cube) => {
+                if (this.isTerminal(cube) && i > 1) {
+                    // Zone of control.
+                    // If its a terminal cube, we cannot proceed further.
+                    // if the unit starts in a terminal cube however, it can still get out
+                    return;
+                }
                 for (let dir = 0; dir<6; dir++) {
                     const neighbor = cube.getNeighbor(dir);
                     const wasVisited = visited.has(neighbor.toString());
@@ -122,6 +134,13 @@ class HexGridPrivate {
         const location = cube.toOffsetHex();
 
         return this.gridData[location.x][location.y].obstacle === true;
+    }
+
+    isTerminal = (cube) => {
+        const location = cube.toOffsetHex();
+
+        return this.gridData[location.x][location.y].terminal === true;
+
     }
 
     doesCubeExist = (cube) => {

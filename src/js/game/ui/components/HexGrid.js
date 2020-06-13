@@ -64,7 +64,7 @@ class HexGridComponent extends React.Component {
         const selectedUnit = selectedLocation && gridView.getTileView(selectedLocation).getUnit();
         
         if (unit) {
-            // this needs a refactor
+            // TODO: refactor this mess
             let unitAttackView = selectedLocation && this.props.getUnitAttackView({ unitLocation: selectedLocation });
             const attackableLocations = selectedLocation && unitAttackView.getAttackableLocations();
             const selectedUnit = selectedLocation && gridView.getUnit(selectedLocation);

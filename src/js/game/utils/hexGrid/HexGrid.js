@@ -52,6 +52,31 @@ class HexGrid {
        
         return this.hexGridPrivate.hasObstacle(cube);
     }
+
+    getNeighbors = (location) => {
+        const neighbors = [];
+        const cube = new OffsetHex(location.x, location.y).toCube();
+
+        for (let dir = 0; dir<6; dir++) {
+            const neighbor = cube.getNeighbor(dir);
+
+            if (this.hexGridPrivate.doesCubeExist(neighbor)) {
+                neighbors.push(neighbor.toLocation());
+            }
+        }
+
+        return neighbors;
+    }
+
+    // A terminal location is any location that lies within an enemy zone of control.
+    // If a unit moves into a terminal location, no more moves can be made.
+    setTerminalLocation = (location) => {
+        this.hexGridPrivate.gridData[location.x][location.y].terminal = true;
+    }
+
+    isTerminalLocation = (location) => {
+       return !!this.hexGridPrivate.gridData[location.x][location.y].terminal; 
+    }
 }
 
 export default HexGrid;

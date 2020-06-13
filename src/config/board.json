@@ -76,6 +76,14 @@
         },
         {
             "location": {
+                "x": 2,
+                "y": 11
+            },
+            "type": "footman",
+            "owner": "2"
+        },
+        {
+            "location": {
                 "x": 3,
                 "y": 11
             },

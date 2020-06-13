@@ -27,6 +27,13 @@ class UnitMovementView extends BaseView {
 
             if (unit && unit.getOwner() === opposingPlayer) {
                 this.hexGrid.setObstacle(location);
+
+                // set up zone of control
+                const neighbors = this.hexGrid.getNeighbors(location);
+
+                neighbors.forEach((neighbor) => {
+                    this.hexGrid.setTerminalLocation(neighbor);
+                });
             }
         });
     }
@@ -39,6 +46,10 @@ class UnitMovementView extends BaseView {
 
     getPathTo = (toLocation) => {
         return this.hexGrid.getPath(this.unitLocation, toLocation);
+    };
+
+    isUnitInEnemyZoneOfControl = () => {
+        return this.hexGrid.isTerminalLocation(this.unitLocation);
     };
 
     isUnitInMoveRange(targetLocation) {
