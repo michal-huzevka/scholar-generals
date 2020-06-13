@@ -1,6 +1,7 @@
 import TileView from 'js/game/core/views/TileView';
+import BaseActionHandler from 'js/game/core/actionHandlers/BaseActionHandler';
 
-class FightUnitHandler {
+class FightUnitHandler extends BaseActionHandler {
     getActionType() {
         return 'FIGHT_UNIT';
     }

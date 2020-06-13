@@ -1,14 +1,23 @@
+import _ from 'underscore';
 import GridView from 'js/game/core/views/GridView';
 
 // number of steps before an old cache is cleared
 const CACHE_DURATION = 200;
+const VIEWS = [
+    GridView
+];
+
 class ViewManager {
     constructor() {
         this.cachedViews = {};
     }
 
-    getView(viewName, generalOptions, viewOptions) {
-        const stepCounter = generalOptions.gameState.get('stepCounter');
+    getView(viewName, gameState, viewOptions = null) {
+        const stepCounter = gameState.get('stepCounter');
+        const generalOptions = {
+            gameState,
+            viewManager: this
+        };
         const cacheKey = this.getCacheKey(viewOptions);
         const cachedView = this.cachedViews[stepCounter] &&
             this.cachedViews[stepCounter][viewName] &&
@@ -57,9 +66,7 @@ class ViewManager {
     }
 
     getClass(viewName) {
-        if (viewName === 'GridView') {
-            return GridView;
-        }
+        return _.find(VIEWS, View => View.name === viewName);
     }
 }
 

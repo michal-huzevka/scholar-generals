@@ -1,7 +1,8 @@
 class GameHistory {
-    constructor(gameState) {
+    constructor(gameState, viewManager) {
         this.states = [gameState];
         this.currentStepCounter = 0;
+        this.viewManager = viewManager;
     }
 
     // allows you to go see what happened in the past
@@ -17,8 +18,10 @@ class GameHistory {
         return this.states[this.currentStepCounter];
     }
 
-    getStateAt(stepCounter) {
-        return this.states[stepCounter];
+    getView = (viewName, viewOptions) => {
+        const gameState = this.getState()
+
+        return this.viewManager.getView(viewName, gameState, viewOptions);
     }
 }
 

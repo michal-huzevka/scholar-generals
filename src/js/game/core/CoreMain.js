@@ -13,9 +13,9 @@ class CoreMain {
             'stepCounter:increase': [],
             'action:complete': []
         };
-        this.actionMaster = new ActionMaster();
-        this.gameHistory = new GameHistory(this.gameState);
         this.viewManager = new ViewManager();
+        this.gameHistory = new GameHistory(this.gameState, this.viewManager);
+        this.actionMaster = new ActionMaster(this.viewManager);
         this.stepMaster = new StepMaster(this.viewManager);
         this.lastAction = null;
     }
@@ -67,14 +67,6 @@ class CoreMain {
 
     getLastAction = () => {
         return this.lastAction;
-    }
-
-    getView = (viewName, stepCounter, viewOptions) => {
-        const generalOptions = {
-            gameState: this.gameHistory.getStateAt(stepCounter),
-            viewManager: this.viewManager
-        };
-        return this.viewManager.getView(viewName, generalOptions, viewOptions);
     }
 }
 

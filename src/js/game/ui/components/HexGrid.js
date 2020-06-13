@@ -28,12 +28,16 @@ class HexGridComponent extends React.Component {
 
     renderChildren() {
         const gridView = this.props.gridView;
+        const locationInRangeMap = {};
+
+        // performance improvement
+        this.state.locationsInRange.forEach((loc) => {
+            locationInRangeMap[loc.x + ',' + loc.y] = loc;
+        });
 
         return gridView.getAllLocations().map((location) => {
             const isSelected = _.isEqual(location, this.state.selectedLocation);
-            const inRange = _.find(this.state.locationsInRange, (inRange) => {
-                return _.isEqual(inRange, location);
-            });
+            const inRange = !!locationInRangeMap[location.x + ',' + location.y];
             const isAttackable = _.find(this.state.attackableLocations, (attackable) => {
                 return _.isEqual(attackable, location);
             });

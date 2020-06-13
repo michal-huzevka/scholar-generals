@@ -3,11 +3,13 @@ import MoveUnitHandler from 'js/game/core/actionHandlers/MoveUnitHandler';
 import FightUnitHandler from 'js/game/core/actionHandlers/FightUnitHandler';
 
 class ActionMaster {
-    constructor() {
+    constructor(viewManager) {
+        const options = { viewManager };
+
         this.handlers = [
-            new EndTurnHandler(),
-            new MoveUnitHandler(),
-            new FightUnitHandler()
+            new EndTurnHandler(options),
+            new MoveUnitHandler(options),
+            new FightUnitHandler(options)
         ];
     }
 

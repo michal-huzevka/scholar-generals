@@ -12,7 +12,7 @@ class MoveOneSpaceHandler extends BaseStepHandler {
         const { fromLocation, toLocation } = step.data;
         const gridView = this._getViewManager().getView(
             'GridView',
-            { gameState: state }
+            state
         );
         let fromTile = gridView.getTile(fromLocation);
         let toTile = gridView.getTile(toLocation);

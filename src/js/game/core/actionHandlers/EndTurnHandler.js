@@ -1,4 +1,6 @@
-class EndTurnHandler {
+import BaseActionHandler from 'js/game/core/actionHandlers/BaseActionHandler';
+
+class EndTurnHandler extends BaseActionHandler {
     getActionType() {
         return 'END_TURN';
     }

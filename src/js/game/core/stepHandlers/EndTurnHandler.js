@@ -10,7 +10,7 @@ class EndTurnHandler {
 
     computeStep(step, state, remainingSteps) {
         const playersView = new PlayersView(state);
-        const globalView = new GlobalView(state);
+        const globalView = new GlobalView({ gameState: state });
     
         const units = globalView.getAllUnitsForActivePlayer();
     

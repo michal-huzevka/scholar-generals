@@ -1,16 +1,18 @@
+import BaseView from 'js/game/core/views/BaseView';
 import TileView from 'js/game/core/views/TileView';
 import Grid from 'js/game/core/models/Grid';
 import HexGrid from 'js/game/utils/hexGrid/HexGrid';
 
-class GridView {
+class GridView extends BaseView {
     constructor(generalOptions) {
-        const gameState = generalOptions.gameState;
-        this.grid = gameState.getModel(Grid.staticGetModelType());
+        super(generalOptions);
+
+        this.grid = this.gameState.getModel(Grid.staticGetModelType());
         this.hexGrid = new HexGrid(this.grid.getWidth(), this.grid.getHeight());
 
         this.hexGrid.getAllLocations().forEach((location) => {
             const id = location.x + ',' + location.y;
-            const tile = new TileView(gameState, id);
+            const tile = new TileView(this.gameState, id);
 
             this.hexGrid.setLocationData(location, tile);
         });

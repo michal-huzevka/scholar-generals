@@ -8,8 +8,7 @@ const createCoreInterface = (coreMain) => {
         'onEvent',
         'offEvent',
         'getState',
-        'doAction',
-        'getView'
+        'doAction'
     ];
 
     const coreInterface = {};
@@ -24,10 +23,7 @@ const createCoreInterface = (coreMain) => {
     }
 
     coreInterface.getGridView = () => {
-        const stepCounter = coreMain.getHistory().getState().get('stepCounter');
-        const view = coreMain.getView('GridView', stepCounter, {});
-
-        return view;
+        return coreMain.getHistory().getView('GridView');
     }
 
     return coreInterface;
