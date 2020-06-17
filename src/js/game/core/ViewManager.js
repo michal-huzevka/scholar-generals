@@ -20,10 +20,13 @@ const VIEWS = [
 class ViewManager {
     constructor() {
         this.cachedViews = {};
+        this.cachedGameStates = {};
     }
 
     getView(viewName, gameState, viewOptions = null) {
         const stepCounter = gameState.get('stepCounter');
+
+        this.checkGameState(stepCounter, gameState);
         const generalOptions = {
             gameState,
             viewManager: this
@@ -47,6 +50,20 @@ class ViewManager {
         }
     }
 
+    checkGameState(stepCounter, gameState) {
+        const cachedState = this.cachedGameStates[stepCounter];
+
+        if (cachedState !== gameState) {
+            if (cachedState) {
+                // game state has changed!
+                // we must delete the cache.
+                console.log('deleting cache');
+                delete this.cachedViews[stepCounter.toString()];
+            }
+            this.cachedGameStates[stepCounter] = gameState;
+        }
+    }
+
     setCachedView(view, viewName, stepCounter, cacheKey) {
         if (!this.cachedViews[stepCounter]) {
             this.cachedViews[stepCounter] = {};
@@ -64,6 +81,7 @@ class ViewManager {
             const deleteCounter = stepCounter - CACHE_DURATION;
 
             delete this.cachedViews[deleteCounter.toString()];
+            delete this.cachedGameStates[deleteCounter.toString()];
         }
     }
 

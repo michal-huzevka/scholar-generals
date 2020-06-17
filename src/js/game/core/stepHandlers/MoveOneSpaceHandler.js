@@ -16,10 +16,9 @@ class MoveOneSpaceHandler extends BaseStepHandler {
         let toTile = gridView.getTile(toLocation);
         let unit = gridView.getUnit(fromLocation);
 
-
         fromTile = fromTile.removeUnit();
         toTile = toTile.setUnitId(unit.getId());
-    
+
         // do the move
         state = state
             .setModel(fromTile)
