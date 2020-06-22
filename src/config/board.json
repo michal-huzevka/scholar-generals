@@ -111,5 +111,21 @@
             "type": "horseman",
             "owner": "2"
         }
+    ],
+    "tiles": [
+        {
+            "location": {
+                "x": 3,
+                "y": 3
+            },
+            "terrain": "forest"
+        },
+        {
+            "location": {
+                "x": 3,
+                "y": 4
+            },
+            "terrain": "forest"
+        }
     ]
 }

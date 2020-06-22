@@ -27,6 +27,10 @@ class Tile extends BaseModel {
         return this.data.unitId;
     }
 
+    getTerrain() {
+        return this.data.terrain;
+    }
+
     // This is used when a unit moves over another unit, it is only temporary.
     _setStashedUnit(unitId) {
         return this.setField('stashedUnitId', unitId);

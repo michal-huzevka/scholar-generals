@@ -16,7 +16,8 @@ class Tile extends React.Component {
             this.props.isSelected !== nextProps.isSelected ||
             this.props.inRange !== nextProps.inRange ||
             this.props.isAttackable !== nextProps.isAttackable ||
-            this.props.unit !== nextProps.unit
+            this.props.unit !== nextProps.unit ||
+            this.props.terrain !== nextProps.terrain
         ) {
             return true;
         }
@@ -25,7 +26,7 @@ class Tile extends React.Component {
     }
 
     render() {
-        const { location, unit, handleTileSelect, isSelected, inRange, isAttackable } = this.props;
+        const { location, unit, handleTileSelect, isSelected, inRange, isAttackable, terrain } = this.props;
         const xOffset = 8;
         const yOffset = 8;
         const point = HexGrid.locationToPixelCoordinates(location, HEXAGON_SIZE);
@@ -42,6 +43,12 @@ class Tile extends React.Component {
             className += ' attackable';
         }
 
+        let terrainUrl = '';
+
+        if (terrain !== 'grass') {
+            terrainUrl = `url(#${this.props.terrain})`;
+        }
+
         return (
             <g
                 className={className}
@@ -52,6 +59,9 @@ class Tile extends React.Component {
                 onClick={() => handleTileSelect(location)}
             >
                 <use className="hex" xlinkHref="#pod" />
+                { terrainUrl &&
+                    <use className="hex" xlinkHref="#pod" style={{fill: terrainUrl}} />
+                }
                 { unit &&
                     <UnitComponent unit={unit} />
                 }
@@ -61,7 +71,10 @@ class Tile extends React.Component {
 }
 
 export default withGlobalContext(Tile, (coreInterface, ownProps) => {
+    const tileView = coreInterface.getGridView().getTileView(ownProps.location);
+
     return {
-        unit: coreInterface.getGridView().getTileView(ownProps.location).getUnit()
+        unit: tileView.getUnit(),
+        terrain: tileView.getTile().getTerrain()
     };
 });

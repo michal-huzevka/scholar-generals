@@ -57,7 +57,6 @@ class ViewManager {
             if (cachedState) {
                 // game state has changed!
                 // we must delete the cache.
-                console.log('deleting cache');
                 delete this.cachedViews[stepCounter.toString()];
             }
             this.cachedGameStates[stepCounter] = gameState;

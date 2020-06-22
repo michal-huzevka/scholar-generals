@@ -3,7 +3,7 @@ import Point from 'js/game/utils/hexGrid/Point';
 import constants from 'js/game/ui/constants';
 import HexGrid from 'js/game/ui/components/HexGrid';
 import GrassTile from 'images/game/grass-tile.png';
-import TreeTile from 'images/game/tree-tile.png';
+import ForestTile from 'images/game/forest-tile.png';
 
 const { HEXAGON_SIZE } = constants;
 class SvgContainer extends React.Component {
@@ -41,7 +41,7 @@ class SvgContainer extends React.Component {
                         <image xlinkHref={GrassTile} x="0" y="0" width="5" height="5" />
                     </pattern>
                     <pattern id="forest" patternUnits="objectBoundingBox" width="15" height="15">
-                        <image xlinkHref={TreeTile} x="1" y="0" width="12" height="10" />
+                        <image xlinkHref={ForestTile} x="1" y="0" width="12" height="10" />
                     </pattern>
                 </defs>
                     <rect style={style} height="180" width="200"></rect>

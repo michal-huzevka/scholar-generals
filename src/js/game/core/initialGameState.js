@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import Player from 'js/game/core/models/Player';
 import Grid from 'js/game/core/models/Grid';
 import GameState from 'js/game/core/GameState';
@@ -18,8 +19,17 @@ const initialGameState = () => {
     for (let x = 0; x<WIDTH; x++) {
         for (let y = 0; y<HEIGHT; y++) {
             const id = `${x},${y}`;
+            const tileConfig = _.find(BOARD_CONFIG.tiles, (tile) =>
+                tile.location.x === x && tile.location.y === y);
 
-            tiles[id] = new Tile({ id });
+            if (tileConfig) {
+                const terrain = tileConfig.terrain;
+
+                tiles[id] = new Tile({ id, terrain });
+            } else {
+                tiles[id] = new Tile({ id, terrain: 'grass' });
+
+            }
         }
     }
 
