@@ -27,6 +27,20 @@ class SvgContainer extends React.Component {
     getTerrainUrl(terrain) {
         return `/assets/images/game/terrain/${terrain}`;
     }
+
+    renderTilePatterns() {
+        //TODO this should be loaded from terrainTypes.json instead.
+        return (
+            <>
+                <pattern id="tile" patternUnits="userSpaceOnUse" width="5" height="5">
+                    <image xlinkHref={this.getTerrainUrl('grass.png')} x="0" y="0" width="5" height="5" />
+                </pattern>
+                <pattern id="forest" patternUnits="objectBoundingBox" width="15" height="15">
+                    <image xlinkHref={this.getTerrainUrl('forest.png')} x="1" y="0" width="12" height="10" />
+                </pattern>
+            </>
+        );
+    }
     
     render() {
         const style = {
@@ -41,12 +55,7 @@ class SvgContainer extends React.Component {
                     <g id='pod'>
                         {this.buildPolygon()}
                     </g>
-                    <pattern id="tile" patternUnits="userSpaceOnUse" width="5" height="5">
-                        <image xlinkHref={this.getTerrainUrl('grass.png')} x="0" y="0" width="5" height="5" />
-                    </pattern>
-                    <pattern id="forest" patternUnits="objectBoundingBox" width="15" height="15">
-                        <image xlinkHref={this.getTerrainUrl('forest.png')} x="1" y="0" width="12" height="10" />
-                    </pattern>
+                    {this.renderTilePatterns()}
                 </defs>
                     <rect style={style} height="180" width="200"></rect>
                     <HexGrid />
