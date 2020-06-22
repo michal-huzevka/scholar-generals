@@ -23,6 +23,10 @@ class SvgContainer extends React.Component {
 
         return <polygon points={str} />;
     }
+
+    getTerrainUrl(terrain) {
+        return `/assets/images/game/terrain/${terrain}`;
+    }
     
     render() {
         const style = {
@@ -38,10 +42,10 @@ class SvgContainer extends React.Component {
                         {this.buildPolygon()}
                     </g>
                     <pattern id="tile" patternUnits="userSpaceOnUse" width="5" height="5">
-                        <image xlinkHref={GrassTile} x="0" y="0" width="5" height="5" />
+                        <image xlinkHref={this.getTerrainUrl('grass.png')} x="0" y="0" width="5" height="5" />
                     </pattern>
                     <pattern id="forest" patternUnits="objectBoundingBox" width="15" height="15">
-                        <image xlinkHref={ForestTile} x="1" y="0" width="12" height="10" />
+                        <image xlinkHref={this.getTerrainUrl('forest.png')} x="1" y="0" width="12" height="10" />
                     </pattern>
                 </defs>
                     <rect style={style} height="180" width="200"></rect>

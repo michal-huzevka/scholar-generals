@@ -23,7 +23,7 @@ class Unit extends React.Component {
         const color = this.props.getPlayerById(ownerId).getColor();
         const health = unit.getHealth();
         const maxHealth = unit.getMaxHealth();
-        const url = `/assets/images/game/${unit.getImage()}`;
+        const url = `/assets/images/game/units/${unit.getImage()}`;
 
         return (
             <g>
