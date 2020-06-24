@@ -1,7 +1,20 @@
 import _ from 'underscore';
 import BaseModel from 'js/game/core/models/BaseModel';
+import TERRAIN_TYPES from 'config/terrainTypes';
 
 class Tile extends BaseModel {
+    constructor(data) {
+        super(data);
+
+        this.terrainStats = TERRAIN_TYPES[data.terrain];
+    }
+
+    /* stats */
+    getDamageMultiplier() {
+        return this.terrainStats.damageMultiplier;
+    }
+
+    /* data setters */
     setUnitId(unitId) {
         let unit = this;
         if (this.getUnitId()) {
@@ -23,6 +36,8 @@ class Tile extends BaseModel {
         }
     }
 
+
+    /* data getters */
     getUnitId() {
         return this.data.unitId;
     }
@@ -30,6 +45,9 @@ class Tile extends BaseModel {
     getTerrain() {
         return this.data.terrain;
     }
+
+
+    /* private methods */
 
     // This is used when a unit moves over another unit, it is only temporary.
     _setStashedUnit(unitId) {

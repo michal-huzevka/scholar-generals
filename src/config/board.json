@@ -126,6 +126,34 @@
                 "y": 4
             },
             "terrain": "forest"
+        },
+        {
+            "location": {
+                "x": 3,
+                "y": 5
+            },
+            "terrain": "forest"
+        },
+        {
+            "location": {
+                "x": 3,
+                "y": 6
+            },
+            "terrain": "forest"
+        },
+        {
+            "location": {
+                "x": 3,
+                "y": 7
+            },
+            "terrain": "forest"
+        },
+        {
+            "location": {
+                "x": 3,
+                "y": 8
+            },
+            "terrain": "forest"
         }
     ]
 }

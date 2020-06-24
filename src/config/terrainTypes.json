@@ -1,8 +1,8 @@
 {
     "grass": {
-        "image": null
+        "damageMultiplier": 1
     },
     "forest": {
-        "image": "terrain/forest.png"
+        "damageMultiplier": 0.75
     }
 }

@@ -2,8 +2,6 @@ import React from 'react';
 import Point from 'js/game/utils/hexGrid/Point';
 import constants from 'js/game/ui/constants';
 import HexGrid from 'js/game/ui/components/HexGrid';
-import GrassTile from 'images/game/grass-tile.png';
-import ForestTile from 'images/game/forest-tile.png';
 
 const { HEXAGON_SIZE } = constants;
 class SvgContainer extends React.Component {

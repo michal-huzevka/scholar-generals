@@ -17,7 +17,13 @@ class AttackUnitHandler extends BaseStepHandler {
             .viewManager
             .getView('TileView', state, { location: attackedLocation })
             .getUnit();
-        const dmg = attackingUnit.getDamagePerAttack();
+        let damageMultiplier = this
+            .viewManager
+            .getView('TileView', state, { location: attackedLocation })
+            .getTile()
+            .getDamageMultiplier();
+            
+        const dmg = Math.round(attackingUnit.getDamagePerAttack() * damageMultiplier);
 
 
         attackedUnit = attackedUnit.modifyHealth(-dmg);
